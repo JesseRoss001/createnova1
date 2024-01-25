@@ -30,6 +30,53 @@ Each user type is integral to the ecosystem of Create Nova, contributing uniquel
 
 If you're interested in learning more about how Create Nova can help your business, visit our website at [createnova.org](http://createnova.org) or get in touch with our team for personalized assistance.
 
+## Technology Stack
+
+Create Nova is built using a robust and scalable technology stack, ensuring high performance, security, and ease of use. Our choice of technologies reflects our commitment to delivering top-quality services. Here's an overview of the primary technologies used in Create Nova:
+
+- **Django**: A high-level Python web framework that encourages rapid development and clean, pragmatic design. It's known for its simplicity and flexibility.
+- **Python**: As our core programming language, Python offers readability, efficiency, and a vast ecosystem of libraries and tools.
+- **ElephantSQL**: An SQL database service that provides managed PostgreSQL databases. ElephantSQL offers automated backups, data encryption, and scalability.
+- **Heroku**: A cloud platform as a service (PaaS) supporting several programming languages. Heroku is used for deploying, managing, and scaling modern apps.
+
+These technologies were chosen for their reliability, ease of integration, and support for agile development practices.
+
 ---
 
-For developers and those interested in the technical aspects of Create Nova, including our Django framework and PostgreSQL database management via ElephantSQL, please refer to the subsequent sections of this README.
+## Preliminary Models for User Types
+
+Below are the basic Django models representing the four main types of users in Create Nova. These models are preliminary and may be refined as the development progresses.
+
+### 1. Administrator Model
+
+```python
+from django.db import models
+
+class Administrator(models.Model):
+    username = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    is_superuser = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.username
+class ContentCreator(models.Model):
+    username = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    portfolio_url = models.URLField(blank=True)
+
+    def __str__(self):
+        return self.username
+class StaffMember(models.Model):
+    username = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    department = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.username
+class Business(models.Model):
+    business_name = models.CharField(max_length=200)
+    contact_email = models.EmailField(unique=True)
+    industry = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.business_name
