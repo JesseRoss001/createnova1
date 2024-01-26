@@ -13,3 +13,4 @@ whitenoise
 django-heroku
 cloudinary
 Pillow
+django-cloudinary-storage
