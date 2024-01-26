@@ -6,3 +6,4 @@ python-dotenv==1.0.1
 sqlparse==0.4.4
 svgwrite==1.4.3
 Tree==0.2.4
+gunicorn
