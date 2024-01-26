@@ -59,6 +59,9 @@ class Administrator(models.Model):
 
     def __str__(self):
         return self.username
+```
+### 2. Creator Model
+```python
 class ContentCreator(models.Model):
     username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -66,6 +69,9 @@ class ContentCreator(models.Model):
 
     def __str__(self):
         return self.username
+```
+### 3. Staff Model
+```python
 class StaffMember(models.Model):
     username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -73,6 +79,9 @@ class StaffMember(models.Model):
 
     def __str__(self):
         return self.username
+```
+### 4. Business  Model
+```python
 class Business(models.Model):
     business_name = models.CharField(max_length=200)
     contact_email = models.EmailField(unique=True)
@@ -80,3 +89,4 @@ class Business(models.Model):
 
     def __str__(self):
         return self.business_name
+````
