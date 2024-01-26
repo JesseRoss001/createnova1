@@ -7,3 +7,9 @@ sqlparse==0.4.4
 svgwrite==1.4.3
 Tree==0.2.4
 gunicorn
+
+dj-database-url
+whitenoise
+django-heroku
+
+Pillow
