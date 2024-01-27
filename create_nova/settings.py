@@ -57,6 +57,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'cloudinary_storage',
+    'home',
+    'services',
+    'portfolio',
+    'user_management',
+    'gallery',
+    'contact',
+    'testimonials',
 ]
 
 MIDDLEWARE = [
@@ -137,7 +144,7 @@ USE_TZ = True
 # Static files configuration
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+STATICFILES_DIRS = [BASE_DIR / 'static'] 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
