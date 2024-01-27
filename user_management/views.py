@@ -1,7 +1,4 @@
-from django.urls import path
-from . import views
+from django.shortcuts import render
 
-urlpatterns = [
-    path('users/', views.user_list, name='user_list'),
-]
-# Create your views here.
+def user_list(request):
+    return render(request, 'user_management/user_list.html')

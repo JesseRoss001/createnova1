@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.urls import path
+from . import views
 
-def gallery(request):
-    return render(request, 'gallery/gallery.html')
+urlpatterns = [
+    path('', views.gallery, name='gallery'),
+]
