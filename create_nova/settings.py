@@ -18,7 +18,7 @@ from decouple import config
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
+ 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
