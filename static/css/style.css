@@ -3,3 +3,49 @@
     padding:0;
     margin:0;
 }
+
+/* Add this inside your style.css file */
+/* Custom styles for 3D glass effect navbar */
+.glass-navbar {
+    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.7); /* Adjust transparency as needed */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* White border for depth */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Shadow for 3D effect */
+}
+
+.glass-navbar::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 1), /* Full black */
+        rgba(25, 25, 25, 0.7), /* Slightly lighter black */
+        rgba(0, 0, 0, 1)  /* Full black */
+    );
+    background-size: 300% 100%;
+    background-position: 100% 50%;
+    animation: moveGradient 3s linear infinite;
+    z-index: -1;
+    mix-blend-mode: multiply;
+}
+
+@keyframes moveGradient {
+    0% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+/* Ensure text color is white */
+.navbar-dark .navbar-nav {
+    color: white;
+}
+
+ul li a {
+    color: white;
+  }
