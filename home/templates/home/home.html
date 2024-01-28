@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Nova - Digital Marketing & Web Development</title>
+    <meta name="description" content="Create Nova, your digital marketing and web development partner in Indonesia, offers services in web design, SEO, content creation, and online advertising.">
+    <meta name="keywords" content="Create Nova, Digital Marketing, Web Development, Indonesia, Web Design, SEO, Content Creation, Online Advertising, E-commerce, Branding, Social Media Marketing, Mobile App Development, Creative Design, User Experience, Analytics, Digital Strategy, Conversion Optimization, Website Maintenance">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxjLQ6Z4UzGCO1II0CJjb7axIh95a6Qf35HMR8iJtLQu" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+    <header class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}">Create Nova</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'web-design' %}">Web Design</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'creator-advertising' %}">Creator Advertising</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="mt-4">
+        <div class="container">
+            <h1>Welcome to Create Nova</h1>
+            <p>Indonesia's premier digital marketing and web development agency...</p>
+            <!-- More content goes here -->
+        </div>
+    </main>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjyIOiIOIh5S2ECe/10aHj1i6xKEYJAztj/gpfW5Bn3/iBXu/i0I1L" crossorigin="anonymous"></script>
+</body>
+</html>
