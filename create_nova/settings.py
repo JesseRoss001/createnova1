@@ -62,7 +62,6 @@ INSTALLED_APPS = [
     'contact',
     'testimonials',
     'django-summernote',
-    
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
