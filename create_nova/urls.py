@@ -10,4 +10,5 @@ urlpatterns = [
     path('gallery/', include('gallery.urls')),
     path('contact/', include('contact.urls')),
     path('testimonials/', include('testimonials.urls')),
+    path('summernote/', include('django_summernote.urls')),
 ]

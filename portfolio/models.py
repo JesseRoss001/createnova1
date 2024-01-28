@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from common.models import LifeCategory
+from services.models import LifeCategory
 
 class ContentCreator(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

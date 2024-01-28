@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'gallery',
     'contact',
     'testimonials',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
