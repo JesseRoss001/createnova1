@@ -27,7 +27,7 @@
     );
     background-size: 300% 100%;
     background-position: 100% 50%;
-    animation: moveGradient 3s linear infinite;
+    animation: moveGradient 100s linear infinite;
     z-index: -1;
     mix-blend-mode: multiply;
 }
