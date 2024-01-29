@@ -129,3 +129,104 @@ ul li a {
     color: white;
     padding-right: 8px;
 }
+
+
+#below-hero {
+    perspective: 1500px; /* Add perspective to create 3D space */
+  }
+  
+  .home-content {
+    transform-style: preserve-3d; /* Allow 3D transformations */
+    animation: float 5s ease-in; /* Floating effect */
+    background: linear-gradient(135deg, red 50%, white 50%); /* 3D red and white background */
+    border-radius: 15px; /* Rounded corners for the div */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    padding: 20px;
+  }
+  
+  .content-title, .content-description {
+    display: block;
+    backface-visibility: hidden; /* Hide the back of the element when it is rotated in 3D */
+    transform: translateZ(60px); /* Move the text towards the viewer */
+    color: black; /* Text color changed to black */
+    margin: 0.5em 0; /* Margin for spacing */
+  }
+  
+  .btn-3d {
+    border: 0;
+    margin-top: 15px;
+    background-color: black;
+    color: white;
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.5); /* Glossy and shiny effect */
+    backface-visibility: hidden;
+    transform: translateZ(30px);
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; /* Transition for background color added */
+  }
+  
+  .btn-3d:hover, .btn-3d:focus {
+    background-color: red; /* Button turns red on hover */
+    color: white; /* Text color stays white */
+    transform: translateZ(50px) translateY(-10px);
+    box-shadow: 0 20px 25px rgba(255, 255, 255, 0.75); /* Increased glossiness on hover/focus */
+  }
+  
+  /* Keyframe animations */
+  @keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -20px, 0); }
+  }
+  
+  #website-services {
+    perspective: 1500px;
+    transform-style: preserve-3d;
+    animation: float 5s ease-in ;
+  }
+  
+  .service-content {
+    transform-style: preserve-3d;
+    background: linear-gradient(45deg, #FFFFFF 50%, #000000 50%);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    color:  red;
+    margin-bottom: 50px; /* Adjust as needed */
+  }
+  
+  .service-title, .service-description {
+    display: block;
+    backface-visibility: hidden;
+    transform: translateZ(60px);
+    margin: 0.5em 0;
+  }
+  
+  .btn-3d-service {
+    border: 0;
+    margin-top: 15px;
+    background-color: black;
+    color: white;
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.5);
+    backface-visibility: hidden;
+    transform: translateZ(30px);
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+  }
+  
+  .btn-3d-service:hover, .btn-3d-service:focus {
+    background-color: red; /* Button turns red on hover */
+    transform: translateZ(50px) translateY(-10px);
+    box-shadow: 0 20px 25px rgba(255, 0, 0, 0.75);
+    color:white;
+  }
+  
+  /* Keyframe animations */
+  @keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -20px, 0); }
+  }
+  
+  /* Adjustments for alignment to the bottom right */
+  @media (min-width: 992px) {
+    #website-services .container {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
