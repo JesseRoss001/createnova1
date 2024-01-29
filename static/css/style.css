@@ -1,55 +1,102 @@
-*  {
+* {
     box-sizing: border-box;
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
 }
-/* header */ 
+
 /* Brand text styling */
 .brand-name {
-    user-select: none; /* Prevent text selection */
+    user-select: none;
     font-weight: bold;
-    margin: 0; /* Remove default h1 margin */
-    display: flex; /* Flex container to better control child elements */
-    justify-content: center; /* Center children horizontally */
-  }
-  
-  /* Individual parts of brand name */
-  .brand-create, .brand-nova {
-    padding: 10px 20px; /* Padding for spacing */
-    color: white; /* White text color */
-    font-size: 1.5rem; /* Starting font size */
-  }
-  
-  /* Specific styling for 'Nova' */
-  .brand-nova {
-    color: black; /* Black text color */
-    background: white; /* White background */
-    border-top-right-radius: 25px; /* Rounded corner on the right side */
-    border-bottom-right-radius: 25px; /* Same as above */
-  }
-  
-  /* Responsive design adjustments */
-  @media (min-width: 576px) {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    position: relative; /* Establish a positioning context */
+}
+
+/* Container for the brand, which will have the animated background */
+.brand-container {
+    padding: 10px 20px;
+    border-radius: 25px; /* Rounded corners like a button */
+    display: inline-block;
+    position: relative; /* Needed for pseudo-elements */
+    overflow: hidden; /* Ensures the background is contained within the border-radius */
+}
+
+/* Pseudo-element for the sliding background */
+.brand-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Start from the left */
+    width: 200%; /* Twice the width to allow sliding effect */
+    height: 100%;
+    background: linear-gradient(-135deg, black 50%, white 50%);
+    z-index: -1;
+    animation: slideBackground 20s linear infinite; /* Sliding background animation */
+}
+
+.brand-create, .brand-nova {
+    font-size: 1.5rem;
+    color: white; /* Initial text color is white */
+    position: relative; /* To ensure text is above the pseudo-element */
+    z-index: 1;
+}
+
+/* Animation for the sliding background */
+@keyframes slideBackground {
+    0%, 100% {
+        left: -100%;
+        background: linear-gradient(-135deg, black 50%, white 50%);
+    }
+    50% {
+        left: 0%;
+        background: linear-gradient(-135deg, white 50%, black 50%);
+    }
+}
+
+@keyframes textColorChangeCreate {
+    0%, 100% {
+        color: black; /* 'Create' starts as black */
+    }
+    50% {
+        color: white; /* 'Create' changes to white at the halfway point */
+    }
+}
+
+/* Keyframes for text color transition for 'Nova' */
+@keyframes textColorChangeNova {
+    0%, 100% {
+        color: white; /* 'Nova' starts as white */
+    }
+    50% {
+        color: black; /* 'Nova' changes to black at the halfway point */
+    }
+}
+
+/* Apply the text color change animation to 'Create' */
+.brand-create {
+    animation: textColorChangeNova 20s linear infinite;
+}
+
+/* Apply the text color change animation to 'Nova' */
+.brand-nova {
+    animation: textColorChangeCreate  20s linear infinite;
+}
+
+
+/* Responsive design adjustments */
+@media (min-width: 576px) {
     .brand-create, .brand-nova {
-      font-size: 2rem; /* Larger font size on small devices and up */
+        font-size: 2rem;
     }
-  }
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
     .brand-create, .brand-nova {
-      font-size: 2.5rem; /* Larger font size on medium devices and up */
+        font-size: 2.5rem;
     }
-  }
-  
-  /* Keyframes for gradient animation on the navbar */
-  @keyframes moveGradient {
-    0% {
-      background-position: 200% center;
-    }
-    100% {
-      background-position: -200% center;
-    }
-  }
+}
 
 /* Add this inside your style.css file */
 /* Custom styles for 3D glass effect navbar */
@@ -73,24 +120,11 @@
         rgba(0, 0, 0, 1)  /* Full black */
     );
     background-size: 300% 100%;
-    background-position: 100% 50%;
-    animation: moveGradient 100s linear infinite;
+    animation: moveGradient 10s linear infinite;
     z-index: -1;
     mix-blend-mode: multiply;
 }
 
-@keyframes moveGradient {
-    0% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0 50%;
-    }
-}
-
-/* Ensure text color is white */
-
-
 ul li a {
     color: white;
-  }
+}
