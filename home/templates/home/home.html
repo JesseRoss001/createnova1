@@ -83,12 +83,22 @@
                 <a href="#" class=" btn btn-primary btn-3d col-4">Discover More</a>
               </div>
             </div>
+           
+                <div class="d-none d-lg-flex justify-content-between col-lg-6">
+                    <div id="lottie-animation1"></div>
+                </div>
+                <div class="d-lg-none col-10">
+                    <div id="lottie-animation1-small"></div>
+                </div>
           </div>
         </div>
       </section>
       <section id="website-services">
         <div class="container my-5">
           <div class="row justify-content-end">
+            <div class="d-none d-lg-flex justify-content-between col-lg-5">
+                <div id="lottie-animation2"></div>
+            </div>
             <div class="col-10 col-md-8 col-lg-6">
               <div class="service-content text-center row d-flex justify-content-center align-items-center ">
                 <h2 class="service-title col-12">Website Design & Improvement</h2>
@@ -96,12 +106,36 @@
                 <a href="#" class="btn btn-3d-service col-4">Learn More</a>
               </div>
             </div>
+            <div class="d-lg-none col-10">
+                <div id="lottie-animation2-small"></div>
+            </div>
           </div>
         </div>
       </section>
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Lottie Animations Initialization Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js" integrity="sha512-m0RQU4SBx0p/bLwRiI4fJBGRafVLZ4s86wRe1+OAx5EXbcWiS/X1jvYdJQRD8jOoIVl+WTyVeMawUWVCh1O8+Q==" crossorigin="anonymous"></script>
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-animation1'), // or 'lottie-animation1-small'
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '{% static "images/lotti-animation1.json" %}' // the file path to the animation json
+          });
+  
+          lottie.loadAnimation({
+            container: document.getElementById('lottie-animation2'), // or 'lottie-animation2-small'
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '{% static "images/lotti-animation2.json" %}' // the file path to the animation json
+          });
+        });
+      </script>
 </body>
 </html>
 {% endblock %}
