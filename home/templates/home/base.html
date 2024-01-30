@@ -58,15 +58,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-light " href="{% url 'testimonials' %}">Testimonials</a>
                         </li>
+
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="{% url 'login' %}">Login</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-light " href="{% url 'register_content_creator' %}">Sign Up  Creator</a>
                         </li>
                                                 <li class="nav-item">
                             <a class="nav-link text-light " href="{% url 'register_staff' %}">Sign Up Staff</a>
                         </li>
-                        <li>
-                            <a class="nav-link text-light" href="{% url 'login' %}">Login</a>
-                        </li>
+                        <!-- Add other non-authenticated user links here -->
+                    {% endif %}
                     </ul>
                 </div>
             </div>

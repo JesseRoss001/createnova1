@@ -4,7 +4,7 @@ from .forms import ContentCreatorSignUpForm, StaffSignUpForm
 from user_management.models import  StaffMember
 from portfolio.models import ContentCreator
 from django.contrib.auth.decorators import login_required, user_passes_test
-
+from django.contrib.auth import logout
 def home(request):
     return render(request, 'home/home.html')
 # Create your views here.
@@ -64,3 +64,6 @@ def register_staff(request):
     else:
         form = StaffSignUpForm()
     return render(request, 'home/register_staff.html', {'form': form})
+def logout_view(request):
+    logout(request)
+    return redirect('home/home.html')
