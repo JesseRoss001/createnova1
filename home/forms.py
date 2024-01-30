@@ -6,9 +6,9 @@ from portfolio.models import ContentCreator
 import json
 
 class ContentCreatorSignUpForm(UserCreationForm):
-    portfolio_url = forms.URLField(required=False)
+    portfolio_url = forms.URLField(required=False,help_text="Optional: Your portfolio website URL or PDF link")
     expertise_area = forms.CharField(max_length=100)
-    social_media_links = forms.CharField(required=False)  # Use JSONField in Django 3.1 and above
+    social_media_links = forms.CharField(required=False, widget=forms.HiddenInput()) # Use JSONField in Django 3.1 and above
 
     class Meta:
         model = get_user_model()

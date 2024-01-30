@@ -2,10 +2,17 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/form_style.css' %}">
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-11 col-md-10 col-lg-9 d-flex justify-content-center align-items-center">
+        <div class="form-container">
 <h2>Register as Staff</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Sign Up</button>
 </form>
+</div>
+</div>
+</div>
 {% endblock %}

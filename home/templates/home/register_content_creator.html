@@ -2,10 +2,45 @@
 {% load static %}
 
 {% block content %}
-<h2>Register as Content Creator</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-</form>
+<link rel="stylesheet" href="{% static 'css/form_style.css' %}">
+
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-11 col-md-10 col-lg-9 d-flex justify-content-center align-items-center">
+        <div class="form-container">
+            <h2>Register as a Content Creator</h2>
+            <form method="post" class="signup-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="button" onclick="addSocialMediaField()">Add Social Media Link</button>
+                <div class="row"><div id="social-media-container" class="col-10 col-md-10 col-lg-10"></div> </div>
+                <button class="btn btn-primary text-center mt-3" type="submit">Sign Up</button>
+                <input type="hidden" id="social_media_links_json"  name="social_media_links">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function addSocialMediaField() {
+        const container = document.getElementById('social-media-container');
+        
+        // Create input group only if there are fewer than 5 fields
+        if (container.children.length < 5) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.classList.add('form-control', 'mb-2');
+            input.placeholder = 'Enter social media URL';
+            input.name = 'social_media_links';
+            input.oninput = handleInput;
+            container.appendChild(input);
+        }
+    }
+
+    function handleInput(event) {
+        // Update social media links array
+        const inputs = document.getElementsByName('social_media_links');
+        const newLinks = Array.from(inputs).map(input => input.value);
+        document.getElementById('social_media_links_json').value = JSON.stringify(newLinks);
+    }
+</script>
 {% endblock %}
