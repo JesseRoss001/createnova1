@@ -41,7 +41,13 @@ SECRET_KEY = 'django-insecure-=m)i^3&!mvi4k1mez4sudd7$tg7q)znsyh@!abn-4sp!zzew6f
 DEBUG = True
 
 ALLOWED_HOSTS = [ '8000-jesseross00-createnova1-zuj7xqyxv3c.ws-eu107.gitpod.io']
-
+# Add your Heroku app domain to CSRF_TRUSTED_ORIGINS
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.gitpod.io',
+    'https://createnova1-1101f48a1def.herokuapp.com',
+]
+# For CSRF_COOKIE_SECURE, since you're using HTTPS on Heroku, set it to True
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 

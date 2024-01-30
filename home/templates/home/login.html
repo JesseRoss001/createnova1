@@ -1,9 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'home/base.html' %}
+{% load static %}
+
 {% block content %}
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+<link rel="stylesheet" href="{% static 'css/form_style.css' %}">
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="row w-100">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+            <div class="form-container shadow-lg">
+                <h2 class="text-center mb-4">Login</h2>
+                <form method="post" class="p-4">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
