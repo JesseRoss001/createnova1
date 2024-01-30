@@ -6,7 +6,15 @@ from portfolio.models import ContentCreator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import logout
 def home(request):
-    return render(request, 'home/home.html')
+    user = request.user
+    is_staff_member = user.is_authenticated and StaffMember.objects.filter(user=user).exists()
+    is_content_creator = user.is_authenticated and ContentCreator.objects.filter(user=user).exists()
+
+    context = {
+        'is_staff_member': is_staff_member,
+        'is_content_creator': is_content_creator
+    }
+    return render(request, 'home/home.html', context)
 # Create your views here.
 def login_view(request):
     return render(request, 'home/login.html')
@@ -67,3 +75,5 @@ def register_staff(request):
 def logout_view(request):
     logout(request)
     return redirect('home/home.html')
+def is_staff_member(user):
+    return StaffMember.objects.filter(user=user).exists()
