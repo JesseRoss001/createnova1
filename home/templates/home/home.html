@@ -5,12 +5,16 @@
 
     <!-- Main Content Area -->
     <main class="mt-4">
-        <div class="container">
-            <h1>Welcome to Create Nova</h1>
-            <p>Indonesia's premier digital marketing and web development agency...</p>
-            <!-- More content goes here -->
-        </div>
-    </main>
+      <div class="container">
+          {% if user.is_authenticated %}
+              <h1>Welcome to Create Nova, {{ user_name }}!</h1>
+          {% else %}
+              <h1>Welcome to Create Nova</h1>
+          {% endif %}
+          <p>Indonesia's premier digital marketing and web development agency...</p>
+          <!-- More content goes here -->
+      </div>
+  </main>
 
     <section id="below-hero">
         <div class="container my-5">

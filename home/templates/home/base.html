@@ -91,6 +91,15 @@
             </ul>
         </nav>
     </header>
+    {% if messages %}
+<div class="container messages">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
     {% endblock %}
             {% block content %}
             <!-- Main content will be here -->

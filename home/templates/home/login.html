@@ -11,7 +11,16 @@
                 <h2 class="text-center mb-4">Login</h2>
                 <form method="post" class="p-4">
                     {% csrf_token %}
-                    {{ form.as_p }}
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+
+                    {{ form.password.label_tag }}
+                    {{ form.password }}
+
+                    {{ form.pin_code.label_tag }}
+                    {{ form.pin_code }}
+                    <small id="pinHelp" class="form-text text-muted">{{ form.pin_code.help_text }}</small>
+
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                     </div>

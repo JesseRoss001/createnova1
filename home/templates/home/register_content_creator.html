@@ -11,10 +11,12 @@
             <form method="post" class="signup-form">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="button" onclick="addSocialMediaField()">Add Social Media Link</button>
-                <div class="row"><div id="social-media-container" class="col-10 col-md-10 col-lg-10"></div> </div>
+                <div class="row">
+                    <div id="social-media-container" class="col-12"></div>
+                </div>
+                <button type="button" class="btn btn-secondary mt-2" onclick="addSocialMediaField()">Add Social Media Link</button>
                 <button class="btn btn-primary text-center mt-3" type="submit">Sign Up</button>
-                <input type="hidden" id="social_media_links_json"  name="social_media_links">
+                <input type="hidden" id="social_media_links_json" name="social_media_links">
             </form>
         </div>
     </div>

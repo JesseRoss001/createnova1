@@ -2,16 +2,21 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from user_management.models import  StaffMember
+from django.contrib.auth.forms import AuthenticationForm
 from portfolio.models import ContentCreator
 import json
 
+
+
+User = get_user_model()
+
 class ContentCreatorSignUpForm(UserCreationForm):
-    portfolio_url = forms.URLField(required=False,help_text="Optional: Your portfolio website URL or PDF link")
+    portfolio_url = forms.URLField(required=False, help_text="Optional: Your portfolio website URL or PDF link")
     expertise_area = forms.CharField(max_length=100)
-    social_media_links = forms.CharField(required=False, widget=forms.HiddenInput()) # Use JSONField in Django 3.1 and above
+    social_media_links = forms.CharField(required=False, widget=forms.HiddenInput())  # Store as JSON
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ('username', 'email', 'password1', 'password2', 'portfolio_url', 'expertise_area', 'social_media_links')
 
     def save(self, commit=True):
@@ -27,7 +32,7 @@ class StaffSignUpForm(UserCreationForm):
     access_code = forms.CharField(max_length=20)
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ('username', 'email', 'password1', 'password2', 'department', 'role', 'access_code')
 
     def clean_access_code(self):
@@ -40,7 +45,13 @@ class StaffSignUpForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_staff = True  # Automatically set as staff
+        user.is_staff = True
         if commit:
             user.save()
         return user
+
+class LoginForm(AuthenticationForm):
+    pin_code = forms.CharField( required=False, help_text="Enter your 10-digit pin code if you are staff.")
+
+    class Meta:
+        fields = ('username', 'password', 'pin_code')

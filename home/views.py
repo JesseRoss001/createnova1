@@ -1,56 +1,67 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseForbidden
-from .forms import ContentCreatorSignUpForm, StaffSignUpForm
-from user_management.models import  StaffMember
+from django.http import HttpResponseForbidden, HttpResponse
+from .forms import ContentCreatorSignUpForm, StaffSignUpForm, LoginForm
+from user_management.models import StaffMember
 from portfolio.models import ContentCreator
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
+from django.contrib import messages
+
 def home(request):
     user = request.user
     is_staff_member = user.is_authenticated and StaffMember.objects.filter(user=user).exists()
     is_content_creator = user.is_authenticated and ContentCreator.objects.filter(user=user).exists()
-
     context = {
         'is_staff_member': is_staff_member,
-        'is_content_creator': is_content_creator
+        'is_content_creator': is_content_creator,
+        'user_name': user.get_full_name() or user.username if user.is_authenticated else None
     }
+    if 'just_logged_in' in request.session:
+        messages.info(request, 'Welcome to CreateNova!')
+        del request.session['just_logged_in']
     return render(request, 'home/home.html', context)
-# Create your views here.
-def login_view(request):
-    return render(request, 'home/login.html')
-def is_staff_member(user):
-    return user.is_authenticated and StaffMember.objects.filter(user=user).exists()
 
-@login_required
-@user_passes_test(is_staff_member)
-def approve_content_creator(request, user_id):
-    try:
-        content_creator = ContentCreator.objects.get(user_id=user_id)
-        content_creator.is_approved = True
-        content_creator.user.is_active = True  # Activate user account
-        content_creator.user.save()
-        content_creator.save()
-        # Redirect to a staff dashboard or a successful approval page
-        return render(request, 'home/home.html')
-    except ContentCreator.DoesNotExist:
-        # Handle the exception if the Content Creator doesn't exist
-        return HttpResponseForbidden()
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                request.session['just_logged_in'] = True
+                return redirect('home')
+            else:
+                messages.error(request, 'Invalid username or password.')
+        else:
+            messages.error(request, 'Invalid login details.')
+    else:
+        form = LoginForm()
+    return render(request, 'home/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, 'You have successfully logged out.')
+    return redirect('home')
 
 def register_content_creator(request):
     if request.method == 'POST':
         form = ContentCreatorSignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False  # Do not activate until approved by staff
+            user.is_active = False
             user.save()
             ContentCreator.objects.create(
                 user=user,
-                portfolio_url=form.cleaned_data['portfolio_url'],
-                expertise_area=form.cleaned_data['expertise_area'],
-                social_media_links=json.loads(form.cleaned_data['social_media_links'])
+                portfolio_url=form.cleaned_data.get('portfolio_url'),
+                expertise_area=form.cleaned_data.get('expertise_area'),
+                social_media_links=form.cleaned_data.get('social_media_links')
             )
-            # Redirect to a page informing the user that their account awaits approval
-            return render(request, 'home/home.html')
+            messages.success(request, 'Your account has been created and is pending approval.')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the errors below.')
     else:
         form = ContentCreatorSignUpForm()
     return render(request, 'home/register_content_creator.html', {'form': form})
@@ -64,16 +75,28 @@ def register_staff(request):
             user.save()
             StaffMember.objects.create(
                 user=user,
-                department=form.cleaned_data['department'],
-                role=form.cleaned_data['role']
+                department=form.cleaned_data.get('department'),
+                role=form.cleaned_data.get('role')
             )
-            # Redirect to the staff dashboard or home page after successful registration
-            return render(request, 'home/home.html')
+            messages.success(request, 'Staff account created successfully.')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the errors below.')
     else:
         form = StaffSignUpForm()
     return render(request, 'home/register_staff.html', {'form': form})
-def logout_view(request):
-    logout(request)
-    return redirect('home/home.html')
-def is_staff_member(user):
-    return StaffMember.objects.filter(user=user).exists()
+
+@login_required
+@user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
+def approve_content_creator(request, user_id):
+    try:
+        content_creator = ContentCreator.objects.get(user_id=user_id)
+        content_creator.is_approved = True
+        content_creator.user.is_active = True
+        content_creator.user.save()
+        content_creator.save()
+        messages.success(request, 'Content creator approved successfully.')
+        return redirect('home')
+    except ContentCreator.DoesNotExist:
+        messages.error(request, 'Content creator does not exist.')
+        return HttpResponseForbidden()
