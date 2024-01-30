@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 def home(request):
     return render(request, 'home/home.html')
 # Create your views here.
-
+def login_view(request):
+    return render(request, 'home/login.html')
 def is_staff_member(user):
     return user.is_authenticated and StaffMember.objects.filter(user=user).exists()
 
