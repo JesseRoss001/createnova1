@@ -15,7 +15,12 @@
           <!-- More content goes here -->
       </div>
   </main>
-
+  {% if is_staff_member and content_creators_awaiting_approval > 0 %}
+  <div class="alert alert-info" role="alert">
+      <strong>Attention:</strong> There are content creator applications awaiting approval.
+      <a href="{% url 'approvecontentcreator' %}" class="alert-link">Review Applications</a>
+  </div>
+  {% endif %}
     <section id="below-hero">
         <div class="container my-5">
           <div class="row">
