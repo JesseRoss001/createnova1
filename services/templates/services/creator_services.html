@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+
 <head>
     <link rel="stylesheet" href="{% static 'css/creator_services.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -12,63 +13,115 @@
             margin-bottom: 30px;
             padding: 20px;
             color: white;
-            
-           
+
+
         }
+
         .glass-effect {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            
+
             top: 10px;
             bottom: 10px;
             left: 10px;
             right: 10px;
         }
+
         .gradient-background h2 {
             font-size: 1.75rem;
             margin-bottom: 15px;
         }
+
         .gradient-background p {
             font-size: 1rem;
             color: black;
             font-weight: 300;
         }
-        .icon-style {
-            color: red;
-            margin-right: 10px;
+
+        @keyframes color-cycle {
+
+            0%,
+            100% {
+                color: white;
+            }
+
+            33% {
+                color: black;
+            }
+
+            66% {
+                color: red;
+            }
         }
+
+        i {
+            animation: color-cycle 6s infinite;
+            margin-right: 20px;
+        }
+
+        .role-card {
+            margin-bottom: 20px;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+        }
+
+
         .analytics-support-info {
             background: linear-gradient(135deg, #000000, #ff0000);
         }
+
         .creator-safeguarding-info {
             background: linear-gradient(135deg, #ff0000, #ffffff);
         }
+
         .freedom-flexibility-info {
             background: linear-gradient(135deg, #ffffff, #000000);
         }
+
         .opportunities-benefits-listing {
             background: linear-gradient(135deg, #ff0000, #000000);
         }
+
         .content-creator-advertising {
             background: linear-gradient(135deg, #000000, #ffffff, #ff0000);
         }
+
         .roles-responsibilities-info {
             background: linear-gradient(135deg, #ffffff, #ff0000, #000000);
         }
+        /* Unique Gradient Styles for Content Creator Page */
+
     </style>
 </head>
 <main class="creator-services-main">
-    <div class="container py-5">
-        <div class="row">
+    <section class="intro-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mt-5">
+                    <h1>Welcome to Our Content Creator Platform</h1>
+                    <p>We are excited to have you on board as a content creator! At our platform, we provide you with a
+                        wide range of opportunities and support to help you succeed in your creative journey.</p>
+                    <p>Explore the benefits and services we offer below, and start creating amazing content today.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="ms-5 me-5 py-5">
+        <div class="row d-flex align-items-center justify-content-center g-lg-1">
             <!-- Analytics Support -->
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background analytics-support-info">
                     <div class="glass-effect">
                         <h2><i class="fas fa-chart-line icon-style"></i>Analytics and Insights</h2>
-                        <p>Gain actionable insights with our in-depth post analysis to refine your content strategy and audience engagement.</p>
+                        <p>Gain actionable insights with our in-depth post analysis to refine your content strategy and
+                            audience engagement.</p>
                     </div>
                 </div>
             </div>
@@ -77,8 +130,10 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background creator-safeguarding-info">
                     <div class="glass-effect">
-                        <h2><i class="fas fa-shield-alt icon-style"></i>Commitment and Safeguarding</h2>
-                        <p>Our commitment ensures you're backed by solid contracts, timely payments, and transparent dealings for your peace of mind.</p>
+                        <h2 class="text-dark"><i class="fas fa-shield-alt icon-style"></i>Commitment and Safeguarding
+                        </h2>
+                        <p>Our commitment ensures you're backed by solid contracts, timely payments, and transparent
+                            dealings for your peace of mind.</p>
                     </div>
                 </div>
             </div>
@@ -87,8 +142,9 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background freedom-flexibility-info">
                     <div class="glass-effect">
-                        <h2><i class="fas fa-hand-paper icon-style"></i>Freedom and Flexibility</h2>
-                        <p>Embrace the freedom to express your creativity on your terms, with the flexibility to engage with multiple brands and campaigns.</p>
+                        <h2 class="text-danger"><i class="fas fa-hand-paper icon-style"></i>Freedom and Flexibility</h2>
+                        <p>Embrace the freedom to express your creativity on your terms, with the flexibility to engage
+                            with multiple brands and campaigns.</p>
                     </div>
                 </div>
             </div>
@@ -98,39 +154,95 @@
                 <div class="gradient-background opportunities-benefits-listing">
                     <div class="glass-effect">
                         <h2><i class="fas fa-gift icon-style"></i>Opportunities and Perks</h2>
-                        <p>Enjoy exclusive perks like sponsored travel, product freebies, and premium campaign rates to reward your creative contributions.</p>
+                        <p>Enjoy exclusive perks like sponsored travel, product freebies, and premium campaign rates to
+                            reward your creative contributions.</p>
                     </div>
                 </div>
-                </div>
-
-        <!-- Content Creator Advertising Opportunities -->
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="content-creator-advertising">
-                <h2><i class="fas fa-bullhorn icon-style"></i>Advertising Opportunities</h2>
-                <p>Stand out with tailored advertising campaigns that showcase your unique brand across multiple platforms and audiences.</p>
             </div>
-        </div>
-</div>
- 
 
-    <section id="roles-responsibilities" class="mt-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="roles-responsibilities-info p-4">
-                        <h2>Roles and Responsibilities</h2>
-                        <p>As a creative partner, you'll play a pivotal role in shaping narratives and creating engaging content that resonates with audiences.</p>
-                        <ul class="list-unstyled">
-                            <li><i class="fas fa-pencil-alt"></i> Crafting authentic and compelling content that aligns with brand values.</li>
-                            <li><i class="fas fa-comments"></i> Interacting with your community and fostering a positive brand image.</li>
-                            <li><i class="fas fa-search"></i> Researching and staying up-to-date with industry trends to keep content relevant.</li>
-                            <li><i class="fas fa-handshake"></i> Collaborating with brands to create synergistic marketing efforts.</li>
-                        </ul>
+            <!-- Content Creator Advertising Opportunities -->
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="gradient-background content-creator-advertising">
+                    <div class="glass-effect">
+
+                        <h2 class="text-dark"><i class="fas fa-bullhorn icon-style"></i>Advertising Opportunities</h2>
+                        <p>Stand out with tailored advertising campaigns that showcase your unique brand across multiple
+                            platforms and audiences.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    
+
+    <div class="row ps-4 pe-4 ms-4 me-4">
+        <div class="col-12">
+            <div class=" p-4">
+                <h2 class="text-center">Roles and Responsibilities</h2>
+                <p class="text-center">As a creative partner, you'll play a pivotal role in shaping narratives and
+                    creating engaging
+                    content that resonates with audiences.</p>
+                <div class="row d-flex justify-content-center align-items-center mt-5 mb-5">
+                    <!-- Card for Crafting Content -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="gradient-background analytics-support-info">
+                            <div class="glass-effect">
+                            <img src="path-to-your-placeholder-image" class="card-img-top" alt="Content Crafting">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-pencil-alt icon-cycle"></i>Crafting
+                                    Content</h5>
+                                <p class="card-text">Crafting authentic and compelling content that aligns with
+                                    brand values.</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <!-- Card for Community Interaction -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="gradient-background analytics-support-info">
+                            <div class="glass-effect">
+                            <img src="path-to-your-placeholder-image" class="card-img-top" alt="Community Interaction">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-comments icon-cycle"></i>Community
+                                    Interaction</h5>
+                                <p class="card-text">Interacting with your community and fostering a positive
+                                    brand image.</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <!-- Card for Industry Research -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="gradient-background analytics-support-info">
+                            <div class="glass-effect">
+                            <img src="path-to-your-placeholder-image" class="card-img-top" alt="Industry Research">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-search icon-cycle"></i>Industry Research
+                                </h5>
+                                <p class="card-text">Researching and staying up-to-date with industry trends to
+                                    keep content relevant.</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <!-- Card for Brand Collaboration -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="gradient-background analytics-support-info">
+                            <div class="glass-effect">
+                            <img src="path-to-your-placeholder-image" class="card-img-top" alt="Brand Collaboration">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-handshake icon-cycle"></i>Brand
+                                    Collaboration</h5>
+                                <p class="card-text">Collaborating with brands to create synergistic marketing
+                                    efforts.</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 <!-- Additional scripts and end of block content -->
