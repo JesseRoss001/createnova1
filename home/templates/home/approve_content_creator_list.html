@@ -19,21 +19,6 @@
                             <p class="card-text">Portfolio URL: <a href="{{ content_creator.portfolio_url }}" target="_blank">{{ content_creator.portfolio_url }}</a></p>
                         {% endif %}
                         <p class="card-text">Expertise: {{ content_creator.expertise_area }}</p>
-                        {% if content_creator.life_categories.all %}
-                            <p class="card-text">Categories: 
-                                {% for category in content_creator.life_categories.all %}
-                                    {{ category.name }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </p>
-                        {% endif %}
-                        {% if content_creator.social_media_links %}
-                            <p class="card-text">
-                                Social Links: 
-                                {% for platform, link in content_creator.social_media_links.items %}
-                                    <a href="{{ link }}" target="_blank">{{ platform }}</a>{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </p>
-                        {% endif %}
                         <div>
                             <button class="btn btn-success" onclick="approveCreator({{ content_creator.id }})">Approve</button>
                             <button class="btn btn-danger" onclick="denyCreator({{ content_creator.id }})">Deny</button>
@@ -48,25 +33,19 @@
         {% endfor %}
     </div>
 </div>
+
 <script>
-    function approveCreator(userId) {
-        sendRequest(userId, 'approve_content_creator');
-    }
-    
-    function denyCreator(userId) {
-        sendRequest(userId, 'deny_content_creator');
-    }
-    
-    function sendRequest(userId, action) {
+function sendRequest(userId, action) {
     const csrftoken = getCookie('csrftoken'); // Get the CSRF token from the cookies
 
     fetch(`/${action}/${userId}/`, {
         method: 'POST',
         headers: {
-            'X-CSRFToken': csrftoken, // Include the CSRF token in the request header
+            'X-CSRFToken': csrftoken,
             'Content-Type': 'application/json',
         },
-        credentials: 'same-origin'
+        credentials: 'same-origin',
+        body: JSON.stringify({ 'userId': userId })
     })
     .then(response => {
         if (!response.ok) throw new Error('Network response was not ok');
@@ -77,26 +56,35 @@
         if(data.status === 'approved' || data.status === 'denied') {
             // Remove the card element from the DOM
             const element = document.getElementById(`creator-${userId}`);
-            element.parentNode.removeChild(element);
+            if (element) element.parentNode.removeChild(element);
         }
     })
     .catch((error) => {
         console.error('Error:', error);
     });
+}
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
+function approveCreator(userId) {
+    sendRequest(userId, 'approve_content_creator');
+}
+
+function denyCreator(userId) {
+    sendRequest(userId, 'deny_content_creator');
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
             }
         }
-        return cookieValue;
     }
+    return cookieValue;
+}
 </script>
 {% endblock %}

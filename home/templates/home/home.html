@@ -15,12 +15,21 @@
           <!-- More content goes here -->
       </div>
   </main>
-  {% if is_staff_member and content_creators_awaiting_approval > 0 %}
+  {% if is_content_creator %}
+  {% with user_content_creator=user.contentcreator %}
+      {% if not user_content_creator.is_approved %}
+          <div class="alert alert-info" role="alert">
+              Your account is pending approval. You will be able to fully access the site once an administrator has approved your account.
+          </div>
+      {% endif %}
+  {% endwith %}
+{% endif %}
+{% if is_staff_member and content_creators_awaiting_approval > 0 %}
   <div class="alert alert-info" role="alert">
       <strong>Attention:</strong> There are content creator applications awaiting approval.
       <a href="{% url 'approvecontentcreator' %}" class="alert-link">Review Applications</a>
   </div>
-  {% endif %}
+{% endif %}
     <section id="below-hero">
         <div class="container my-5">
           <div class="row">

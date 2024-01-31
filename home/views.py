@@ -11,19 +11,21 @@ from django.views.generic import ListView
 from django.http import JsonResponse
 
 
-@login_required
-@user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
 def home(request):
     user = request.user
-    is_staff_member = StaffMember.objects.filter(user=user).exists()
-    is_content_creator = ContentCreator.objects.filter(user=user).exists()
-    
+    is_staff_member = False
+    is_content_creator = False
+
+    if user.is_authenticated:
+        is_staff_member = StaffMember.objects.filter(user=user).exists()
+        is_content_creator = ContentCreator.objects.filter(user=user).exists()
+
     # Count content creators awaiting approval
     content_creators_awaiting_approval = ContentCreator.objects.filter(is_approved=False).count()
-    
+
     # Get the list of awaiting content creators
     awaiting_content_creators = ContentCreator.objects.filter(is_approved=False)
-    
+
     context = {
         'is_staff_member': is_staff_member,
         'is_content_creator': is_content_creator,
@@ -31,11 +33,11 @@ def home(request):
         'content_creators_awaiting_approval': content_creators_awaiting_approval,
         'awaiting_content_creators': awaiting_content_creators,  # Pass the list to the template
     }
-    
+
     if 'just_logged_in' in request.session:
         messages.info(request, 'Welcome to CreateNova!')
         del request.session['just_logged_in']
-    
+
     return render(request, 'home/home.html', context)
 
 def login_view(request):
@@ -44,8 +46,24 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            pin_code = form.cleaned_data.get('pin_code')
+
+            # Authenticate the user
             user = authenticate(request, username=username, password=password)
+
             if user is not None:
+                # Check if the user is a content creator
+                try:
+                    content_creator = ContentCreator.objects.get(user=user)
+                except ContentCreator.DoesNotExist:
+                    content_creator = None
+
+                if content_creator:
+                    if not content_creator.is_approved:
+                        messages.error(request, 'Your account is pending approval. You will be able to fully access the site once an administrator has approved your account.')
+                        return redirect('home')  # Redirect to the home page
+
+
                 login(request, user)
                 request.session['just_logged_in'] = True
                 return redirect('home')
@@ -64,19 +82,22 @@ def logout_view(request):
 
 def register_content_creator(request):
     if request.method == 'POST':
-        form = ContentCreatorSignUpForm(request.POST)
+        form = ContentCreatorSignUpForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
+            user.is_active = False  # Keep the user inactive until approved
             user.save()
-            ContentCreator.objects.create(
+            content_creator = ContentCreator.objects.create(
                 user=user,
                 portfolio_url=form.cleaned_data.get('portfolio_url'),
                 expertise_area=form.cleaned_data.get('expertise_area'),
-                social_media_links=form.cleaned_data.get('social_media_links')
+                social_media_links=form.cleaned_data.get('social_media_links'),
+                profile_photo=form.cleaned_data.get('profile_photo')  # Assuming you handle the profile photo upload
             )
+            # Assign selected categories to the content creator
+            content_creator.life_categories.set(form.cleaned_data.get('life_categories'))
             messages.success(request, 'Your account has been created and is pending approval.')
-            return redirect('home')
+            return redirect('home')  # Redirect content creators to home
         else:
             messages.error(request, 'Please correct the errors below.')
     else:
