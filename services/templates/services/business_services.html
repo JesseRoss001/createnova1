@@ -54,6 +54,19 @@
             text-align: center;
             padding: 50px 20px;
         }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding-left: 10px;
+            padding-right:20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+            top: 10px;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 <!-- Business Services Section -->
@@ -65,9 +78,9 @@
     <div class="container">
         <div class="row">
             <!-- Websites Landing Page Card -->
-            <div class="col-md-4">
+            <div class="col-md-4 glass-effect">
                 <div class="service-card">
-                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+                    <img src="{% static 'images/ss1.png' %}" class="w-75 ms-5 mt-4 mb-4" alt="Service Image">
                     <div class="service-header">
                         <h3>Websites Landing Page</h3>
                     </div>
@@ -80,9 +93,9 @@
                 </div>
             </div>
             <!-- Advertising and Information Website Card -->
-            <div class="col-md-4">
-                <div class="service-card">
-                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+            <div class="col-md-4 glass-effect">
+                <div class="service-card ">
+                    <img src="{% static 'images/ss4.gif' %}" class="ms-4 me-1 w-75 d-flex justify-self-center " alt="Service Image">
                     <div class="service-header">
                         <h3>Advertising and Information Website</h3>
                     </div>
@@ -95,10 +108,10 @@
                 </div>
             </div>
             <!-- E-commerce Website Card -->
-            <div class="col-md-4">
+            <div class="col-md-4 glass-effect">
                 <div class="service-card">
-                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
-                    <div class="service-header">
+                    <img src="{% static 'images/ss2.gif' %}" class="ps-4 ms-5 mt-5 mb-5 w-75 pe-4" alt="Service Image">
+                    <div class="service-header mt-3 mb-4">
                         <h3>E-commerce Website</h3>
                     </div>
                     <div class="service-body">
@@ -135,7 +148,7 @@
             <!-- Single Advertising Card -->
             <div class="col-md-4">
                 <div class="service-card">
-                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+                    <img src="{% static 'images/cs1.png' %}" alt="Service Image">
                     <div class="service-header">
                         <h3>Single Advertising</h3>
                     </div>
@@ -151,7 +164,7 @@
             <div class="col-md-4">
                 
                 <div class="service-card">
-                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+                    <img src="{% static 'images/cs3.png' %}" class="w-75 ms-4 ps-4 pt-5 pb-5" alt="Service Image">
                     <div class="service-header">
                         <h3>Campaign, Multiple Platforms</h3>
                     </div>
@@ -166,7 +179,7 @@
             <!-- Large Campaign with Live Reviews Card -->
             <div class="col-md-4">
                 <div class="service-card">
-                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+                    <img src="{% static 'images/cs2.png' %}" class="w-75 ms-4 ps-4 pt-5 pb-5" alt="Service Image">
                     <div class="service-header">
                         <h3>Large Campaign with Live Reviews</h3>
                     </div>
