@@ -1,54 +1,161 @@
-<div id="websites-landing-page" class="testimonial-section">
-    <h2>Your Registered Interest: Websites Landing Page</h2>
-    <p>Thank you for expressing your interest in our Website Landing Page services. Our team will be in touch to discuss how we can optimize your online presence for better conversions.</p>
-    <!-- Include form here -->
-</div>
-<div id="advertising-information-website" class="testimonial-section">
-    <h2>Your Registered Interest: Advertising and Information Website</h2>
-    <p>We appreciate your interest in our Advertising and Information Website services. A dedicated consultant will reach out shortly to understand your needs and provide tailored solutions.</p>
-    <!-- Include form here -->
-</div>
-<div id="e-commerce-website" class="testimonial-section">
-    <h2>Your Registered Interest: E-commerce Website</h2>
-    <p>Thank you for considering our E-commerce Website solutions. We're excited to help you create a seamless shopping experience for your customers and will contact you for further details.</p>
-    <!-- Include form here -->
-</div>
-<div id="single-ad" class="testimonial-section">
-    <h2>Your Registered Interest: Single Advertising</h2>
-    <p>Your interest in Single Advertising is confirmed. Our marketing specialists are eager to assist you in crafting a compelling advertisement that resonates with your audience.</p>
-    <!-- Include form here -->
-</div>
-<div id="multi-ad" class="testimonial-section">
-    <h2>Your Registered Interest: Campaign Across Multiple Platforms</h2>
-    <p>We are thrilled that you're interested in expanding your reach with our Multi-Platform Campaign services. Let's build a robust strategy to elevate your brand across various channels.</p>
-    <!-- Include form here -->
-</div>
-<div id="campaign" class="testimonial-section">
-    <h2>Your Registered Interest: Large Campaign with Live Reviews</h2>
-    <p>Your initiative for a Large Campaign with Live Reviews has been noted. We look forward to enhancing your campaign with our interactive and engaging promotional approach.</p>
-    <!-- Include form here -->
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', (event) => {
-  // Hide all sections by default
-  const sections = document.querySelectorAll('.testimonial-section');
-  sections.forEach(section => section.style.display = 'none');
+{% extends 'home/base.html' %}
+{% load static %}
 
-  // Get the query parameter value for 'section'
-  const urlParams = new URLSearchParams(window.location.search);
-  const sectionToShow = urlParams.get('section');
+{% block content %}
 
-  // If a section is specified in the query parameter, show only that section
-  if (sectionToShow) {
-    const section = document.getElementById(sectionToShow);
-    if (section) {
-      section.style.display = 'block';
-    } else {
-      // If the section does not exist, show a default message or handle the error
-      console.error('The requested section does not exist: ' + sectionToShow);
+<head>
+  <link rel="stylesheet" href="{% static 'css/businessservice.css' %}">
+  <!-- Bootstrap CSS for styling and grid layout -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS for additional styling -->
+  <style>
+    .service-card {
+      margin-bottom: 30px;
+      border-radius: 8px;
+      transition: transform 0.3s ease-in-out;
+      overflow: hidden;
+      background: rgba(235, 235, 235, 0.7);
+      /* Semi-transparent white background */
+      backdrop-filter: blur(10px);
+      /* Frosted glass effect */
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      /* Light white border for depth */
+      height: 100%;
     }
-  } else {
-    // If no specific section is requested, you can choose to show a default section or do nothing
-  }
-});
-  </script>
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-header,
+    .service-footer {
+      padding: 15px 20px;
+    }
+
+    .service-header {
+      background-color: transparent;
+      color: #000;
+      border-bottom: 2px solid #ff0000;
+      /* Red accent border */
+    }
+
+    .service-body {
+      padding: 20px;
+      background-color: transparent;
+      color: #333;
+    }
+
+    .service-footer {
+      background-color: #ff0000;
+      color: #fff;
+      text-align: center;
+    }
+
+    h2,
+    h3 {
+      color: #000;
+    }
+
+    ul.list-unstyled {
+      padding-left: 0;
+    }
+
+    li {
+      padding: 5px 0;
+    }
+
+    /* Custom Styles */
+    .welcome-section {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      padding-left: 10px;
+      padding-right: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+      top: 10px;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+    }
+  </style>
+</head>
+<body class="bg-danger">
+<div class="row d-flex  my-5 justify-content-center">
+  <div class="col-8 mt-5 mb-5 pt-5 pb-5 border-danger glass-effect">
+    <div class="service-card border-danger border-2">
+      <div id="websites-landing-page" class="testimonial-section">
+        <h2 class="m-2 pb-2">Your Registered Interest: Websites Landing Page</h2>
+        <p class="m-2 pb-2">Thank you for expressing your interest in our Website Landing Page services. Our team will be in touch to
+          discuss how we can optimize your online presence for better conversions.</p>
+        <!-- Include form here -->
+      </div>
+      <div id="advertising-information-website" class="testimonial-section">
+        <h2 class="m-2 pb-2">Your Registered Interest: Advertising and Information Website</h2>
+        <p class="m-2 pb-2" >We appreciate your interest in our Advertising and Information Website services. A dedicated consultant will
+          reach out shortly to understand your needs and provide tailored solutions.</p>
+        <!-- Include form here -->
+      </div>
+      <div id="e-commerce-website" class="testimonial-section">
+        <h2 class="m-2 pb-2" >Your Registered Interest: E-commerce Website</h2>
+        <p class="m-2 pb-2">Thank you for considering our E-commerce Website solutions. We're excited to help you create a seamless
+          shopping experience for your customers and will contact you for further details.</p>
+        <!-- Include form here -->
+      </div>
+      <div id="single-ad" class="testimonial-section">
+        <h2 class="m-2 pb-2" >Your Registered Interest: Single Advertising</h2>
+        <p class="m-2 pb-2" >Your interest in Single Advertising is confirmed. Our marketing specialists are eager to assist you in
+          crafting a compelling advertisement that resonates with your audience.</p>
+        <!-- Include form here -->
+      </div>
+      <div id="multi-ad" class="testimonial-section">
+        <h2 class="m-2 pb-2" >Your Registered Interest: Campaign Across Multiple Platforms</h2>
+        <p class="m-2 pb-2">We are thrilled that you're interested in expanding your reach with our Multi-Platform Campaign services.
+          Let's build a robust strategy to elevate your brand across various channels.</p>
+        <!-- Include form here -->
+      </div>
+      <div id="campaign" class="testimonial-section">
+        <h2 class="m-2 pb-2" >Your Registered Interest: Large Campaign with Live Reviews</h2>
+        <p class="m-2 pb-2" >Your initiative for a Large Campaign with Live Reviews has been noted. We look forward to enhancing your
+          campaign with our interactive and engaging promotional approach.</p>
+        <!-- Include form here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    // Hide all sections by default
+    const sections = document.querySelectorAll('.testimonial-section');
+    sections.forEach(section => section.style.display = 'none');
+
+    // Get the query parameter value for 'section'
+    const urlParams = new URLSearchParams(window.location.search);
+    const sectionToShow = urlParams.get('section');
+
+    // If a section is specified in the query parameter, show only that section
+    if (sectionToShow) {
+      const section = document.getElementById(sectionToShow);
+      if (section) {
+        section.style.display = 'block';
+      } else {
+        // If the section does not exist, show a default message or handle the error
+        console.error('The requested section does not exist: ' + sectionToShow);
+      }
+    } else {
+      // If no specific section is requested, you can choose to show a default section or do nothing
+    }
+  });
+</script>
+<script src="{% static 'js/business_services.js' %}"></script>
+{% endblock %}
+</body>
+
+</html>
