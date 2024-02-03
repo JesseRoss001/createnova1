@@ -1,0 +1,54 @@
+<div id="websites-landing-page" class="testimonial-section">
+    <h2>Your Registered Interest: Websites Landing Page</h2>
+    <p>Thank you for expressing your interest in our Website Landing Page services. Our team will be in touch to discuss how we can optimize your online presence for better conversions.</p>
+    <!-- Include form here -->
+</div>
+<div id="advertising-information-website" class="testimonial-section">
+    <h2>Your Registered Interest: Advertising and Information Website</h2>
+    <p>We appreciate your interest in our Advertising and Information Website services. A dedicated consultant will reach out shortly to understand your needs and provide tailored solutions.</p>
+    <!-- Include form here -->
+</div>
+<div id="e-commerce-website" class="testimonial-section">
+    <h2>Your Registered Interest: E-commerce Website</h2>
+    <p>Thank you for considering our E-commerce Website solutions. We're excited to help you create a seamless shopping experience for your customers and will contact you for further details.</p>
+    <!-- Include form here -->
+</div>
+<div id="single-ad" class="testimonial-section">
+    <h2>Your Registered Interest: Single Advertising</h2>
+    <p>Your interest in Single Advertising is confirmed. Our marketing specialists are eager to assist you in crafting a compelling advertisement that resonates with your audience.</p>
+    <!-- Include form here -->
+</div>
+<div id="multi-ad" class="testimonial-section">
+    <h2>Your Registered Interest: Campaign Across Multiple Platforms</h2>
+    <p>We are thrilled that you're interested in expanding your reach with our Multi-Platform Campaign services. Let's build a robust strategy to elevate your brand across various channels.</p>
+    <!-- Include form here -->
+</div>
+<div id="campaign" class="testimonial-section">
+    <h2>Your Registered Interest: Large Campaign with Live Reviews</h2>
+    <p>Your initiative for a Large Campaign with Live Reviews has been noted. We look forward to enhancing your campaign with our interactive and engaging promotional approach.</p>
+    <!-- Include form here -->
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+  // Hide all sections by default
+  const sections = document.querySelectorAll('.testimonial-section');
+  sections.forEach(section => section.style.display = 'none');
+
+  // Get the query parameter value for 'section'
+  const urlParams = new URLSearchParams(window.location.search);
+  const sectionToShow = urlParams.get('section');
+
+  // If a section is specified in the query parameter, show only that section
+  if (sectionToShow) {
+    const section = document.getElementById(sectionToShow);
+    if (section) {
+      section.style.display = 'block';
+    } else {
+      // If the section does not exist, show a default message or handle the error
+      console.error('The requested section does not exist: ' + sectionToShow);
+    }
+  } else {
+    // If no specific section is requested, you can choose to show a default section or do nothing
+  }
+});
+  </script>
