@@ -3,22 +3,125 @@
 
 {% block content %}
 <head>
-
     <link rel="stylesheet" href="{% static 'css/businessservice.css' %}">
-
+    <!-- Bootstrap CSS for styling and grid layout -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS for additional styling -->
+    <style>
+        .service-card {
+            margin-bottom: 30px;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+            overflow: hidden;
+            background: rgba(235, 235, 235, 0.7); /* Semi-transparent white background */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Light white border for depth */
+            height: 100%; 
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .service-header, .service-footer {
+            padding: 15px 20px;
+        }
+        .service-header {
+            background-color: transparent;
+            color: #000;
+            border-bottom: 2px solid #ff0000; /* Red accent border */
+        }
+        .service-body {
+            padding: 20px;
+            background-color: transparent;
+            color: #333;
+        }
+        .service-footer {
+            background-color: #ff0000;
+            color: #fff;
+            text-align: center;
+        }
+        h2, h3 {
+            color: #000;
+        }
+        ul.list-unstyled {
+            padding-left: 0;
+        }
+        li {
+            padding: 5px 0;
+        }
+                /* Custom Styles */
+                .welcome-section {
+            text-align: center;
+            padding: 50px 20px;
+        }
+    </style>
 </head>
- <!-- Business Services Section -->
- <section id="business-services" class="mt-4">
+<!-- Business Services Section -->
+<section class=" card bg-light welcome-section">
+    <h1>Welcome to Our Services</h1>
+    <p>Explore our wide range of professional services designed to elevate your business and content creation endeavors.</p>
+</section>
+<section id="business-services" class="mt-4">
     <div class="container">
         <div class="row">
+            <!-- Websites Landing Page Card -->
+            <div class="col-md-4">
+                <div class="service-card">
+                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+                    <div class="service-header">
+                        <h3>Websites Landing Page</h3>
+                    </div>
+                    <div class="service-body">
+                        <p>Starting at IDR 1,000,000, get a professionally designed landing page that is optimized for conversions. This service includes responsive design, SEO-friendly structure, and a user-centric layout to captivate your audience.</p>
+                    </div>
+                    <div class="service-footer">
+                        Starting at IDR 1,000,000
+                    </div>
+                </div>
+            </div>
+            <!-- Advertising and Information Website Card -->
+            <div class="col-md-4">
+                <div class="service-card">
+                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+                    <div class="service-header">
+                        <h3>Advertising and Information Website</h3>
+                    </div>
+                    <div class="service-body">
+                        <p>Begin with IDR 2,500,000 for a comprehensive website that showcases your services or products along with valuable information. Expect a blend of aesthetics and functionality, ensuring your message is clear and impactful.</p>
+                    </div>
+                    <div class="service-footer">
+                        Starting at IDR 2,500,000
+                    </div>
+                </div>
+            </div>
+            <!-- E-commerce Website Card -->
+            <div class="col-md-4">
+                <div class="service-card">
+                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+                    <div class="service-header">
+                        <h3>E-commerce Website</h3>
+                    </div>
+                    <div class="service-body">
+                        <p>From IDR 5,000,000, take advantage of a fully integrated e-commerce platform tailored to your brand. Features include secure payment gateways, inventory management, and a seamless shopping experience for users.</p>
+                    </div>
+                    <div class="service-footer">
+                        Starting at IDR 5,000,000
+                    </div>
+                </div>
+            </div>
+            <!-- Additional Services Card -->
             <div class="col-12">
-                <div class="glass-effect p-4">
-                    <h2>Business Services</h2>
-                    <ul class="list-unstyled">
-                        <li>Websites Landing Page - From IDR 1,000,000</li>
-                        <li>Advertising and Information Website - From IDR 2,500,000</li>
-                        <li>E-commerce Website - From IDR 5,000,000</li>
-                    </ul>
+                <div class="service-card">
+                    
+                    <div class="service-header">
+                        <h3>Comprehensive Support and Maintenance</h3>
+                    </div>
+                    <div class="service-body">
+                        <p>Our full spectrum of support services, starting from an affordable rate, ensures your website remains up-to-date and fully functional. Maintenance, bug fixing, site hosting, database management, and ongoing improvements are all available to keep your site at peak performance.</p>
+                    </div>
+                    <div class="service-footer">
+                        Services available as add-ons
+                    </div>
                 </div>
             </div>
         </div>
@@ -29,19 +132,58 @@
 <section id="creator-services" class="mt-4">
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <div class="gradient-effect p-4">
-                    <h2>Content Creator Advertising</h2>
-                    <ul class="list-unstyled">
-                        <li>Single Advertising - From IDR 500,000</li>
-                        <li>Campaign, Multiple Platforms - From IDR 1,500,000</li>
-                        <li>Large Campaign with Live reviews and in person visitations  - From IDR 3,000,000</li>
-                    </ul>
+            <!-- Single Advertising Card -->
+            <div class="col-md-4">
+                <div class="service-card">
+                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+                    <div class="service-header">
+                        <h3>Single Advertising</h3>
+                    </div>
+                    <div class="service-body">
+                        <p>With prices starting at IDR 500,000, our Single Advertising service provides targeted exposure for your brand. This package includes a one-time advertisement tailored to your objectives, ensuring maximum impact for a specific campaign or product launch.</p>
+                    </div>
+                    <div class="service-footer">
+                        Starting at IDR 500,000
+                    </div>
+                </div>
+            </div>
+            <!-- Campaign, Multiple Platforms Card -->
+            <div class="col-md-4">
+                
+                <div class="service-card">
+                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+                    <div class="service-header">
+                        <h3>Campaign, Multiple Platforms</h3>
+                    </div>
+                    <div class="service-body">
+                        <p>Starting from IDR 1,500,000, extend your reach across multiple platforms with our integrated campaign service. This package is designed to create a cohesive and consistent brand message, leveraging different mediums for a comprehensive advertising strategy.</p>
+                    </div>
+                    <div class="service-footer">
+                        Starting at IDR 1,500,000
+                    </div>
+                </div>
+            </div>
+            <!-- Large Campaign with Live Reviews Card -->
+            <div class="col-md-4">
+                <div class="service-card">
+                    <img src="{% static 'images/default-profile-photo.png' %}" alt="Service Image">
+                    <div class="service-header">
+                        <h3>Large Campaign with Live Reviews</h3>
+                    </div>
+                    <div class="service-body">
+                        <p>From IDR 3,000,000, our Large Campaign service includes live reviews and in-person visitations for an immersive promotional experience. This hands-on approach allows for real-time interaction and feedback, making it ideal for launches and major announcements.</p>
+                    </div>
+                    <div class="service-footer">
+                        Starting at IDR 3,000,000
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Additional scripts if needed -->
+<script src="{% static 'js/business_services.js' %}"></script>
+{% endblock %}
 </body>
 </html>
-{% endblock %}

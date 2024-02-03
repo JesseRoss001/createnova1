@@ -1,0 +1,89 @@
+/* Style for the sign-up form */
+.form-container {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* For the glass effect */
+    border: 1px solid transparent; /* Transparent border initially */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow for 3D effect */
+    border-radius: 15px;
+    padding: 20px;
+    margin: 40px auto;
+    position: relative;
+    z-index: 2; /* Increase the z-index to keep the form above */
+
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    /* 3D hovering effect */
+    &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Shimmering border animation */
+.form-container::before {
+    content: '';
+    position: absolute;
+    top: -2px; /* Adjust top position to make it slightly outside the form */
+    left: -2px; /* Adjust left position to make it slightly outside the form */
+    right: -2px; /* Adjust right position to make it slightly outside the form */
+    bottom: -2px; /* Adjust bottom position to make it slightly outside the form */
+    border: 1px solid transparent;
+    animation: shimmerBorder 4s linear infinite; /* Shimmering border animation */
+    z-index: -1; /* Decrease the z-index to place it behind the form */
+}
+
+/* Shimmering border animation */
+@keyframes shimmerBorder {
+    0% {
+        border-image: linear-gradient(90deg, transparent, silver, transparent);
+        border-image-slice: 1;
+    }
+    100% {
+        border-image: linear-gradient(90deg, transparent, silver, transparent);
+        border-image-slice: 1;
+    }
+}
+
+
+
+body {
+    background: linear-gradient(-45deg, black, red, white, red, black);
+    background-size: 400% 400%;
+    animation: gradientBG 20s ease infinite;
+}
+
+/* Form input and button styling */
+.form-container input[type='text'],
+.form-container input[type='email'],
+.form-container input[type='password'],
+.form-container button {
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px 15px;
+    width: 100%;
+}
+.form-container button {    display:flex;
+    margin:auto;
+    padding:auto;
+    justify-content: center;
+    align-items: center;
+    width: 25%;}
+
+/* Style for the submit button */
+.form-container button {
+    background: red;
+    color: white;
+    border: none;
+}
+
+/* Hover effect for the button */
+.form-container button:hover {
+    background: darkred;
+}
+
+/* Helper text style */
+.help-text {
+    font-size: 0.8rem;
+    color: grey;
+}
