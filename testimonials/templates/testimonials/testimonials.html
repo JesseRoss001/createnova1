@@ -6,120 +6,430 @@
 <head>
   <link rel="stylesheet" href="{% static 'css/businessservice.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    .card-custom {
+      transition: transform .2s;
+      /* Animation */
+      margin: 0 auto;
+      /* Center the card */
+      max-width: 500px;
+      /* Set a max-width for the card */
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .card-custom:hover {
+      transform: scale(1.05);
+      /* (110% zoom - Note: if the zoom is too large, it will cause the page to have horizontal scrolling) */
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .form-control:focus {
+      border-color: #ff0000;
+      box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, .25);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+      background-color: #ff0000;
+      border-color: #ff0000;
+    }
+
+    .btn-primary:hover {
+      background-color: #e60000;
+      border-color: #e60000;
+    }
+    .selected {
+      background-color: #e6e6e6;
+    }
+    .form-text.text-muted {
+      margin-top: .25rem;
+    }
+  </style>
 </head>
 
 <body class="bg-danger">
+
   <div class="container my-5">
+
     <!-- Section for Websites Landing Page -->
-    <div id="websites-landing-page" class="testimonial-section">
-      <h2>Your Registered Interest: Websites Landing Page</h2>
-      <p>Thank you for expressing your interest in our Website Landing Page services. Our team will be in touch to
-        discuss how we can optimize your online presence for better conversions.</p>
-      <!-- Include form here -->
-      <form method="post" action="{% url 'submit_interest' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="service_package_of_interest" value="websites-landing-page">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+    <div class="container my-5">
+      <!-- Section for Websites Landing Page -->
+      <div id="websites-landing-page" class="testimonial-section">
+        <h2>Your Registered Interest: Websites Landing Page</h2>
+        <p>Thank you for expressing your interest in our Website Landing Page services. Our team will be in touch to
+          discuss how we can optimize your online presence for better conversions.</p>
+        {% if messages %}
+        <div class="alert-container">
+          {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="card card-custom">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Register Your Interest</h2>
+            <form method="post" action="{% url 'submit_interest' %}" class="form-horizontal">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form.business_name.label_tag }}
+                {{ form.business_name }}
+                {% if form.business_name.help_text %}
+                <small class="form-text text-muted">{{ form.business_name.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.contact_email.label_tag }}
+                {{ form.contact_email }}
+                <div id="emailHelp" class="form-text text-muted">
+                  Provide a contact email. We aim to respond within 48 hours.
+                </div>
+              </div>
+              <div class="form-group">
+                {{ form.industry.label_tag }}
+                {{ form.industry }}
+                {% if form.industry.help_text %}
+                <small class="form-text text-muted">{{ form.industry.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.interested_life_categories.label_tag }}
+                {{ form.interested_life_categories }}
+                {% if form.interested_life_categories.help_text %}
+                <small class="form-text text-muted">{{ form.interested_life_categories.help_text }}</small>
+                {% endif %}
+              </div>
+              <input type="hidden" name="service_package_of_interest" value="websites-landing-page">
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-    <!-- Section for Advertising and Information Website -->
-    <div id="advertising-information-website" class="testimonial-section">
-      <h2>Your Registered Interest: Advertising and Information Website</h2>
-      <p>We appreciate your interest in our Advertising and Information Website services. A dedicated consultant will
-        reach out shortly to understand your needs and provide tailored solutions.</p>
-      <!-- Include form here -->
-      <form method="post" action="{% url 'submit_interest' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="service_package_of_interest" value="advertising-information-website">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+      <!-- Section for Advertising and Information Website -->
+      <div id="advertising-information-website" class="testimonial-section">
+        <h2>Your Registered Interest: Advertising and Information Website</h2>
+        <p>We appreciate your interest in our Advertising and Information Website services. A dedicated consultant will
+          reach out shortly to understand your needs and provide tailored solutions.</p>
+        <!-- Include form here -->
+        {% if messages %}
+        <div class="alert-container">
+          {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="card card-custom">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Register Your Interest</h2>
+            <form method="post" action="{% url 'submit_interest' %}" class="form-horizontal">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form.business_name.label_tag }}
+                {{ form.business_name }}
+                {% if form.business_name.help_text %}
+                <small class="form-text text-muted">{{ form.business_name.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.contact_email.label_tag }}
+                {{ form.contact_email }}
+                <div id="emailHelp" class="form-text text-muted">
+                  Provide a contact email. We aim to respond within 48 hours.
+                </div>
+              </div>
+              <div class="form-group">
+                {{ form.industry.label_tag }}
+                {{ form.industry }}
+                {% if form.industry.help_text %}
+                <small class="form-text text-muted">{{ form.industry.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.interested_life_categories.label_tag }}
+                {{ form.interested_life_categories }}
+                {% if form.interested_life_categories.help_text %}
+                <small class="form-text text-muted">{{ form.interested_life_categories.help_text }}</small>
+                {% endif %}
+              </div>
+              <input type="hidden" name="service_package_of_interest" value="advertising-information-website">
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-    <!-- Section for E-commerce Website -->
-    <div id="e-commerce-website" class="testimonial-section">
-      <h2>Your Registered Interest: E-commerce Website</h2>
-      <p>Thank you for considering our E-commerce Website solutions. We're excited to help you create a seamless
-        shopping experience for your customers and will contact you for further details.</p>
-      <!-- Include form here -->
-      <form method="post" action="{% url 'submit_interest' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="service_package_of_interest" value="e-commerce-website">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+      <!-- Section for E-commerce Website -->
+      <div id="e-commerce-website" class="testimonial-section">
+        <h2>Your Registered Interest: E-commerce Website</h2>
+        <p>Thank you for considering our E-commerce Website solutions. We're excited to help you create a seamless
+          shopping experience for your customers and will contact you for further details.</p>
+        {% if messages %}
+        <div class="alert-container">
+          {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="card card-custom">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Register Your Interest</h2>
+            <form method="post" action="{% url 'submit_interest' %}" class="form-horizontal">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form.business_name.label_tag }}
+                {{ form.business_name }}
+                {% if form.business_name.help_text %}
+                <small class="form-text text-muted">{{ form.business_name.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.contact_email.label_tag }}
+                {{ form.contact_email }}
+                <div id="emailHelp" class="form-text text-muted">
+                  Provide a contact email. We aim to respond within 48 hours.
+                </div>
+              </div>
+              <div class="form-group">
+                {{ form.industry.label_tag }}
+                {{ form.industry }}
+                {% if form.industry.help_text %}
+                <small class="form-text text-muted">{{ form.industry.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.interested_life_categories.label_tag }}
+                {{ form.interested_life_categories }}
+                {% if form.interested_life_categories.help_text %}
+                <small class="form-text text-muted">{{ form.interested_life_categories.help_text }}</small>
+                {% endif %}
+              </div>
+              <input type="hidden" name="service_package_of_interest" value="e-commerce-website">
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-    <!-- Section for Single Advertising -->
-    <div id="single-ad" class="testimonial-section">
-      <h2>Your Registered Interest: Single Advertising</h2>
-      <p>Your interest in Single Advertising is confirmed. Our marketing specialists are eager to assist you in crafting
-        a compelling advertisement that resonates with your audience.</p>
-      <!-- Include form here -->
-      <form method="post" action="{% url 'submit_interest' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="service_package_of_interest" value="single-ad">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
 
-    <!-- Section for Campaign Across Multiple Platforms -->
-    <div id="multi-ad" class="testimonial-section">
-      <h2>Your Registered Interest: Campaign Across Multiple Platforms</h2>
-      <p>We are thrilled that you're interested in expanding your reach with our Multi-Platform Campaign services. Let's
-        build a robust strategy to elevate your brand across various channels.</p>
-      <!-- Include form here -->
-      <form method="post" action="{% url 'submit_interest' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="service_package_of_interest" value="multi-ad">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+      <!-- Section for Single Advertising -->
+      <div id="single-ad" class="testimonial-section">
+        <h2>Your Registered Interest: Single Advertising</h2>
+        <p>Your interest in Single Advertising is confirmed. Our marketing specialists are eager to assist you in
+          crafting
+          a compelling advertisement that resonates with your audience.</p>
+        {% if messages %}
+        <div class="alert-container">
+          {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="card card-custom">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Register Your Interest</h2>
+            <form method="post" action="{% url 'submit_interest' %}" class="form-horizontal">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form.business_name.label_tag }}
+                {{ form.business_name }}
+                {% if form.business_name.help_text %}
+                <small class="form-text text-muted">{{ form.business_name.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.contact_email.label_tag }}
+                {{ form.contact_email }}
+                <div id="emailHelp" class="form-text text-muted">
+                  Provide a contact email. We aim to respond within 48 hours.
+                </div>
+              </div>
+              <div class="form-group">
+                {{ form.industry.label_tag }}
+                {{ form.industry }}
+                {% if form.industry.help_text %}
+                <small class="form-text text-muted">{{ form.industry.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.interested_life_categories.label_tag }}
+                {{ form.interested_life_categories }}
+                {% if form.interested_life_categories.help_text %}
+                <small class="form-text text-muted">{{ form.interested_life_categories.help_text }}</small>
+                {% endif %}
+              </div>
+              <input type="hidden" name="service_package_of_interest" value="single-ad">
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-    <!-- Section for Large Campaign with Live Reviews -->
-    <div id="campaign" class="testimonial-section">
-      <h2>Your Registered Interest: Large Campaign with Live Reviews</h2>
-      <p>Your initiative for a Large Campaign with Live Reviews has been noted. We look forward to enhancing your
-        campaign with our interactive and engaging promotional approach.</p>
-      <!-- Include form here -->
-      <form method="post" action="{% url 'submit_interest' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="service_package_of_interest" value="campaign">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
 
-  </div>
+      <!-- Section for Campaign Across Multiple Platforms -->
+      <div id="multi-ad" class="testimonial-section">
+        <h2>Your Registered Interest: Campaign Across Multiple Platforms</h2>
+        <p>We are thrilled that you're interested in expanding your reach with our Multi-Platform Campaign services.
+          Let's
+          build a robust strategy to elevate your brand across various channels.</p>
+        {% if messages %}
+        <div class="alert-container">
+          {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="card card-custom">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Register Your Interest</h2>
+            <form method="post" action="{% url 'submit_interest' %}" class="form-horizontal">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form.business_name.label_tag }}
+                {{ form.business_name }}
+                {% if form.business_name.help_text %}
+                <small class="form-text text-muted">{{ form.business_name.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.contact_email.label_tag }}
+                {{ form.contact_email }}
+                <div id="emailHelp" class="form-text text-muted">
+                  Provide a contact email. We aim to respond within 48 hours.
+                </div>
+              </div>
+              <div class="form-group">
+                {{ form.industry.label_tag }}
+                {{ form.industry }}
+                {% if form.industry.help_text %}
+                <small class="form-text text-muted">{{ form.industry.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.interested_life_categories.label_tag }}
+                {{ form.interested_life_categories }}
+                {% if form.interested_life_categories.help_text %}
+                <small class="form-text text-muted">{{ form.interested_life_categories.help_text }}</small>
+                {% endif %}
+              </div>
+              <input type="hidden" name="service_package_of_interest" value="multi-ad">
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-      // Hide all sections by default
-      const sections = document.querySelectorAll('.testimonial-section');
-      sections.forEach(section => section.style.display = 'none');
 
-      // Get the query parameter value for 'section'
-      const urlParams = new URLSearchParams(window.location.search);
-      const sectionToShow = urlParams.get('section');
+      <!-- Section for Large Campaign with Live Reviews -->
+      <div id="campaign" class="testimonial-section">
+        <h2>Your Registered Interest: Large Campaign with Live Reviews</h2>
+        <p>Your initiative for a Large Campaign with Live Reviews has been noted. We look forward to enhancing your
+          campaign with our interactive and engaging promotional approach.</p>
+        {% if messages %}
+        <div class="alert-container">
+          {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="card card-custom">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Register Your Interest</h2>
+            <form method="post" action="{% url 'submit_interest' %}" class="form-horizontal">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form.business_name.label_tag }}
+                {{ form.business_name }}
+                {% if form.business_name.help_text %}
+                <small class="form-text text-muted">{{ form.business_name.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.contact_email.label_tag }}
+                {{ form.contact_email }}
+                <div id="emailHelp" class="form-text text-muted">
+                  Provide a contact email. We aim to respond within 48 hours.
+                </div>
+              </div>
+              <div class="form-group">
+                {{ form.industry.label_tag }}
+                {{ form.industry }}
+                {% if form.industry.help_text %}
+                <small class="form-text text-muted">{{ form.industry.help_text }}</small>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form.interested_life_categories.label_tag }}
+                {{ form.interested_life_categories }}
+                {% if form.interested_life_categories.help_text %}
+                <small class="form-text text-muted">{{ form.interested_life_categories.help_text }}</small>
+                {% endif %}
+              </div>
+              <input type="hidden" name="service_package_of_interest" value="campaign">
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-      // If a section is specified in the query parameter, show only that section
-      if (sectionToShow) {
-        const section = document.getElementById(sectionToShow);
-        if (section) {
-          section.style.display = 'block';
-        } else {
-          // If the section does not exist, show a default message or handle the error
-          console.error('The requested section does not exist: ' + sectionToShow);
-        }
-      }
-    });
-  </script>
-  <script src="{% static 'js/business_services.js' %}"></script>
-  {% endblock %}
+
+
+
+      <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+          // Hide all sections by default
+          const sections = document.querySelectorAll('.testimonial-section');
+          sections.forEach(section => section.style.display = 'none');
+
+          // Get the query parameter value for 'section'
+          const urlParams = new URLSearchParams(window.location.search);
+          const sectionToShow = urlParams.get('section');
+
+          // If a section is specified in the query parameter, show only that section
+          if (sectionToShow) {
+            const section = document.getElementById(sectionToShow);
+            if (section) {
+              section.style.display = 'block';
+            } else {
+              // If the section does not exist, show a default message or handle the error
+              console.error('The requested section does not exist: ' + sectionToShow);
+            }
+          }
+        });
+      </script>
+      <script src="{% static 'js/business_services.js' %}"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          // Example: Add click event listeners to your category checkboxes to toggle a class
+          const categories = document.querySelectorAll('.interested_life_categories input[type="checkbox"]');
+          categories.forEach(category => {
+            category.addEventListener('click', function () {
+              this.parentNode.classList.toggle('selected');
+            });
+          });
+        });
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const emailField = document.getElementById('id_contact_email'); // Use the correct ID for your email field
+          const emailFeedback = document.createElement('div');
+          emailField.parentNode.insertBefore(emailFeedback, emailField.nextSibling);
+
+          emailField.addEventListener('blur', function () {
+            if (emailField.value) { // Check if the email field is not empty
+              emailFeedback.textContent = 'Thanks! We aim to respond within 48 hours.';
+              emailFeedback.style.color = 'green';
+            } else {
+              emailFeedback.textContent = '';
+            }
+          });
+        });
+      </script>
+      
+      {% endblock %}
 </body>
 
 </html>
