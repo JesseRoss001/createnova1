@@ -31,17 +31,23 @@
   </div>
 {% endif %}
 {% if is_staff_member %}
-{% if new_business_interests %}
-    <div>
-        <h2>New Business Interests</h2>
-        <ul>
-            {% for business in new_business_interests %}
-                <li>{{ business.business_name }}</li>
-            {% endfor %}
-        </ul>
-        <a href="{% url 'business_interests_management' %}">Manage Business Interests</a>
-    </div>
-{% endif %}
+    {% if new_business_interests %}
+        <div class="container mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2>New Business Interests</h2>
+                </div>
+               
+                <div class="card-body">
+                    <a href="{% url 'business_interests_management' %}" class="btn btn-success">Manage All Business Interests</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            There are no new business interests at this time.
+        </div>
+    {% endif %}
 {% endif %}
     <section id="below-hero">
         <div class="container my-5">
