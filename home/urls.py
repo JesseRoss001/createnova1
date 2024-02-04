@@ -15,6 +15,7 @@ urlpatterns = [
     path('business/mark_email_sent/<int:business_id>/', views.mark_email_sent, name='mark_email_sent'),
     path('business/mark_completed/<int:business_id>/', views.mark_completed, name='mark_completed'),
     path('business/interests_management/', views.business_interests_management, name='business_interests_management'),
+    path('business/deny_interest/<int:business_id>/', views.deny_business_interest, name='deny_business_interest'),
     ]
 
 urlpatterns += [

@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block content %}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="container mt-4">
@@ -15,7 +17,7 @@
                 <h5 class="card-title">Details</h5>
                 <p class="card-text">Contact Email: {{ business.contact_email }}</p>
                 <p class="card-text">Industry: {{ business.industry }}</p>
-                <p class="card-text">Interested Life Categories: 
+                <p class="card-text">Interested Life Categories:
                     {% for category in business.interested_life_categories.all %}
                         {{ category.name }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
@@ -25,8 +27,9 @@
 
                 <div class="mt-3">
                     {% if business.status == 'pending' %}
-                        <a href="{% url 'mark_email_sent' business.id %}" class="btn btn-outline-primary">Mark Email as Sent</a>
-                    {% endif %}
+                    <a href="{% url 'mark_email_sent' business.id %}" class="btn btn-outline-primary">Mark Email as Sent</a>
+                    <a href="{% url 'deny_business_interest' business.id %}" class="btn btn-outline-danger">Reject</a>
+                {% endif %}
                     {% if business.status == 'email_sent' %}
                         <a href="{% url 'mark_completed' business.id %}" class="btn btn-outline-success">Mark as Completed</a>
                     {% endif %}
@@ -37,7 +40,14 @@
         <p>No business interests to display.</p>
     {% endfor %}
 </div>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js" integrity="sha384-ka3I+H4g0LTVa1B2gYCpuq6ufJ3W2IK0r3dJ+H5L5y2cJHod1zsm+V5F2VQF6K/F" crossorigin="anonymous"></script>
 

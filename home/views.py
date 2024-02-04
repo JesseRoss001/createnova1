@@ -10,15 +10,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView
 from django.http import JsonResponse
 from testimonials.models import Business
+from services.models import LifeCategory
 
 def home(request):
     user = request.user
     is_staff_member = False
     is_content_creator = False
 
+    # Initialize context dictionary here
+    context = {
+        'is_staff_member': False,
+        'is_content_creator': False,
+        'user_name': None,
+        'content_creators_awaiting_approval': 0,
+        'awaiting_content_creators': [],
+    }
+
     if user.is_authenticated:
         is_staff_member = StaffMember.objects.filter(user=user).exists()
         is_content_creator = ContentCreator.objects.filter(user=user).exists()
+        context['is_staff_member'] = is_staff_member
+        context['is_content_creator'] = is_content_creator
+        context['user_name'] = user.get_full_name() or user.username
 
     if is_staff_member:
         new_business_interests = Business.objects.filter(status='pending').order_by('-id')  # or any specific status
@@ -26,17 +39,11 @@ def home(request):
 
     # Count content creators awaiting approval
     content_creators_awaiting_approval = ContentCreator.objects.filter(is_approved=False).count()
+    context['content_creators_awaiting_approval'] = content_creators_awaiting_approval
 
     # Get the list of awaiting content creators
     awaiting_content_creators = ContentCreator.objects.filter(is_approved=False)
-
-    context = {
-        'is_staff_member': is_staff_member,
-        'is_content_creator': is_content_creator,
-        'user_name': user.get_full_name() or user.username if user.is_authenticated else None,
-        'content_creators_awaiting_approval': content_creators_awaiting_approval,
-        'awaiting_content_creators': awaiting_content_creators,  # Pass the list to the template
-    }
+    context['awaiting_content_creators'] = awaiting_content_creators
 
     if 'just_logged_in' in request.session:
         messages.info(request, 'Welcome to CreateNova!')
@@ -155,14 +162,12 @@ class ContentCreatorApprovalListView(LoginRequiredMixin, UserPassesTestMixin, Li
     def get_queryset(self):
         return ContentCreator.objects.filter(is_approved=False)
 def business_interests_management(request):
-    if not request.user.is_staff_member:
-        return redirect('home')
+    businesses = Business.objects.prefetch_related('interested_life_categories').all()
+    return render(request, 'home/business_interests_management.html', {'businesses': businesses})
 
-    businesses = Business.objects.all() # Assume there's a date_created field
-    return render(request, 'business_interests_management.html', {'businesses': businesses})
 
 def mark_email_sent(request, business_id):
-    if not request.user.is_staff_member:
+    if not request.user.is_staff:
         messages.error(request, "You are not authorized to perform this action.")
         return redirect('home')
 
@@ -170,10 +175,10 @@ def mark_email_sent(request, business_id):
     business.status = 'email_sent'
     business.save()
     messages.success(request, "Email status updated successfully.")
-    return redirect('business_interests_management')
+    return render(request, 'home/business_interests_management.html', {'businesses': businesses})
 
 def mark_completed(request, business_id):
-    if not request.user.is_staff_member:
+    if not request.user.is_staff:
         messages.error(request, "You are not authorized to perform this action.")
         return redirect('home')
 
@@ -181,4 +186,12 @@ def mark_completed(request, business_id):
     business.status = 'completed'
     business.save()
     messages.success(request, "Business interest marked as completed.")
+    return redirect('business_interests_management')
+
+@login_required
+@user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
+def deny_business_interest(request, business_id):
+    business = get_object_or_404(Business, pk=business_id)
+    # You can add logic here to mark the business as denied or handle as appropriate
+    messages.success(request, "Business interest denied.")
     return redirect('business_interests_management')

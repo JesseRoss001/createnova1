@@ -1,12 +1,7 @@
 from django.db import models
 from user_management.models import StaffMember
 from services.models import LifeCategory
-class ServicePackage(models.Model):
-    name = models.CharField(max_length=100)
-    details = models.TextField()
 
-    def __str__(self):
-        return self.name
 class ServicePackage(models.Model):
     name = models.CharField(max_length=100)
     details = models.TextField()

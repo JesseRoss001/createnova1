@@ -9,39 +9,22 @@ def submit_interest(request):
         form = BusinessRegistrationForm(request.POST)
         if form.is_valid():
             service_package_name = request.POST.get('service_package_of_interest')
+            business = form.save(commit=False)
             try:
                 service_package = ServicePackage.objects.get(name=service_package_name)
-                business = form.save(commit=False)
                 business.service_package_of_interest = service_package
                 business.save()
+                form.save_m2m()  # This saves the ManyToMany data for the form.
                 messages.success(request, 'Your interest has been registered successfully.')
-                return redirect('home')  # Replace 'home' with your home page's URL name
+                return redirect('home')
             except ServicePackage.DoesNotExist:
                 messages.error(request, 'Service package not found.')
-                return redirect(request.path)  # Stay on the same page
+                return redirect(request.path)
         else:
             messages.error(request, form.errors)
-
     else:
         form = BusinessRegistrationForm()
-
-    # Retrieve the section from the URL query parameter
-    section = request.GET.get('section')
-    if section:
-        # Check if the section corresponds to a service package
-        try:
-            service_package = ServicePackage.objects.get(name=section)
-            context = {
-                'form': form,
-                'service_package': service_package,
-                'section': section,
-            }
-        except ServicePackage.DoesNotExist:
-            raise Http404("Service package does not exist")
-    else:
-        context = {'form': form}
-
-    return render(request, 'testimonials/testimonials.html', context)
+    return render(request, 'testimonials/testimonials.html', {'form': form})
 
 def testimonials(request):
     form = BusinessRegistrationForm()
