@@ -30,6 +30,19 @@
       <a href="{% url 'approvecontentcreator' %}" class="alert-link">Review Applications</a>
   </div>
 {% endif %}
+{% if is_staff_member %}
+{% if new_business_interests %}
+    <div>
+        <h2>New Business Interests</h2>
+        <ul>
+            {% for business in new_business_interests %}
+                <li>{{ business.business_name }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'business_interests_management' %}">Manage Business Interests</a>
+    </div>
+{% endif %}
+{% endif %}
     <section id="below-hero">
         <div class="container my-5">
           <div class="row">

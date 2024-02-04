@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView
 from django.http import JsonResponse
-
+from testimonials.models import Business
 
 def home(request):
     user = request.user
@@ -19,6 +19,10 @@ def home(request):
     if user.is_authenticated:
         is_staff_member = StaffMember.objects.filter(user=user).exists()
         is_content_creator = ContentCreator.objects.filter(user=user).exists()
+
+    if is_staff_member:
+        new_business_interests = Business.objects.filter(status='pending').order_by('-id')  # or any specific status
+        context['new_business_interests'] = new_business_interests
 
     # Count content creators awaiting approval
     content_creators_awaiting_approval = ContentCreator.objects.filter(is_approved=False).count()
@@ -150,3 +154,31 @@ class ContentCreatorApprovalListView(LoginRequiredMixin, UserPassesTestMixin, Li
 
     def get_queryset(self):
         return ContentCreator.objects.filter(is_approved=False)
+def business_interests_management(request):
+    if not request.user.is_staff_member:
+        return redirect('home')
+
+    businesses = Business.objects.all() # Assume there's a date_created field
+    return render(request, 'business_interests_management.html', {'businesses': businesses})
+
+def mark_email_sent(request, business_id):
+    if not request.user.is_staff_member:
+        messages.error(request, "You are not authorized to perform this action.")
+        return redirect('home')
+
+    business = get_object_or_404(Business, pk=business_id)
+    business.status = 'email_sent'
+    business.save()
+    messages.success(request, "Email status updated successfully.")
+    return redirect('business_interests_management')
+
+def mark_completed(request, business_id):
+    if not request.user.is_staff_member:
+        messages.error(request, "You are not authorized to perform this action.")
+        return redirect('home')
+
+    business = get_object_or_404(Business, pk=business_id)
+    business.status = 'completed'
+    business.save()
+    messages.success(request, "Business interest marked as completed.")
+    return redirect('business_interests_management')
