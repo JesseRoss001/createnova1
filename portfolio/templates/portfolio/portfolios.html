@@ -97,9 +97,17 @@
             </div>
 
             <div class="mb-3">
-                <label for="id_social_media_links">Social Media Links (JSON format)</label>
-                <textarea name="social_media_links" id="id_social_media_links" class="form-control" readonly>{{ content_creator.social_media_links|safe }}</textarea>
-                <button type="button" onclick="unlockField('id_social_media_links')" class="btn-update">Update</button>
+                <label>Social Media Links</label>
+                {% for url_name, url in content_creator.get_social_media_links.items %}
+                    <div class="input-group mb-2">
+                        <input type="text" name="social_media_{{ url_name }}" value="{{ url }}" class="form-control" placeholder="{{ url_name|capfirst }} URL">
+                        <div class="input-group-append">
+                            <button class="btn btn-danger" type="button" onclick="removeField(this)">Remove</button>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div id="social-media-fields"></div>
+                <button type="button" class="btn btn-secondary" onclick="addField()">Add Link</button>
             </div>
 
             <div class="mb-3">
@@ -128,6 +136,7 @@
 <!-- FontAwesome for icons -->
 <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
 <script>
+
    function unlockField(fieldId) {
         var field = document.getElementById(fieldId);
         field.readOnly = false;
@@ -136,6 +145,23 @@
             field.value = "";
         }
     }
+    function addField() {
+        const container = document.getElementById('social-media-fields');
+        const fieldHTML = `
+            <div class="input-group mb-2">
+                <input type="text" name="social_media_links[]" class="form-control" placeholder="Social Media URL">
+                <div class="input-group-append">
+                    <button class="btn btn-danger" type="button" onclick="removeField(this)">Remove</button>
+                </div>
+            </div>`;
+        container.insertAdjacentHTML('beforeend', fieldHTML);
+    }
+
+    function removeField(btn) {
+        const fieldGroup = btn.closest('.input-group');
+        fieldGroup.remove();
+    }
+
     // Initialize tooltips
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
