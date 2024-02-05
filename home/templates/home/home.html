@@ -31,6 +31,9 @@
   </div>
 {% endif %}
 {% if is_staff_member %}
+<div class="container my-5">
+  <a href="{% url 'completed_business_interests' %}" class="btn btn-info">View Completed Business Interests</a>
+</div>
     {% if new_business_interests %}
         <div class="container mt-4">
             <div class="card">

@@ -175,8 +175,10 @@ def mark_email_sent(request, business_id):
     business.status = 'email_sent'
     business.save()
     messages.success(request, "Email status updated successfully.")
-    return render(request, 'home/business_interests_management.html', {'businesses': businesses})
+    return redirect('business_interests_management')
 
+@login_required
+@user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
 def mark_completed(request, business_id):
     if not request.user.is_staff:
         messages.error(request, "You are not authorized to perform this action.")
@@ -185,13 +187,61 @@ def mark_completed(request, business_id):
     business = get_object_or_404(Business, pk=business_id)
     business.status = 'completed'
     business.save()
-    messages.success(request, "Business interest marked as completed.")
-    return redirect('business_interests_management')
+    messages.success(request, f"{business.business_name} has been marked as completed.")
+    return redirect('business_interests_management')  # Redirect to the management page
 
 @login_required
 @user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
 def deny_business_interest(request, business_id):
     business = get_object_or_404(Business, pk=business_id)
-    # You can add logic here to mark the business as denied or handle as appropriate
-    messages.success(request, "Business interest denied.")
+    business.delete()  # This will remove the business interest from the database
+    messages.success(request, "Business interest has been successfully denied and removed.")
     return redirect('business_interests_management')
+
+
+@login_required
+@user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
+def completed_business_interests(request):
+    completed_businesses = Business.objects.filter(status='completed')
+    return render(request, 'home/completed_business_interests.html', {'completed_businesses': completed_businesses})
+
+@login_required
+@user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
+def add_business_note(request, business_id):
+    if request.method == 'POST':
+        form = BusinessNoteForm(request.POST)
+        if form.is_valid():
+            business = get_object_or_404(Business, pk=business_id)
+            # Assuming you have a notes field or related model for Business
+            business.notes = form.cleaned_data['note']
+            business.save()
+            messages.success(request, "Note added successfully.")
+            return redirect('completed_business_interests')
+    else:
+        form = BusinessNoteForm()
+    return render(request, 'home/add_business_note.html', {'form': form})
+
+@login_required
+@user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
+def mark_business_sold(request, business_id):
+    business = get_object_or_404(Business, pk=business_id)
+    business.is_sold = True
+    business.save()
+    messages.success(request, "Business marked as sold.")
+    return redirect('completed_business_interests')
+@login_required
+@user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
+def delete_business_interest(request, business_id):
+    business = get_object_or_404(Business, pk=business_id)
+    business.delete()
+    messages.success(request, "Business interest deleted.")
+    return redirect('completed_business_interests')
+
+@login_required
+@user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
+def mark_completed_and_paid(request, business_id):
+    business = get_object_or_404(Business, pk=business_id)
+    business.completed_and_paid = True
+    business.save()
+    messages.success(request, f"Project with {business.business_name} has been marked as completed and paid for.")
+    return redirect('completed_business_interests')

@@ -67,3 +67,5 @@ class LoginForm(AuthenticationForm):
 
     class Meta:
         fields = ('username', 'password', 'pin_code')
+class BusinessNoteForm(forms.Form):
+    note = forms.CharField(widget=forms.Textarea, help_text="Enter notes about communication with the business")

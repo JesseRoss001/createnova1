@@ -16,6 +16,12 @@ urlpatterns = [
     path('business/mark_completed/<int:business_id>/', views.mark_completed, name='mark_completed'),
     path('business/interests_management/', views.business_interests_management, name='business_interests_management'),
     path('business/deny_interest/<int:business_id>/', views.deny_business_interest, name='deny_business_interest'),
+    path('completed-business-interests/', views.completed_business_interests, name='completed_business_interests'),
+    path('business/add-note/<int:business_id>/', views.add_business_note, name='add_business_note'),
+    path('business/mark_sold/<int:business_id>/', views.mark_business_sold, name='mark_business_sold'),
+    path('business/delete/<int:business_id>/', views.delete_business_interest, name='delete_business_interest'),
+    path('business/completed_and_paid/<int:business_id>/', views.mark_completed_and_paid, name='mark_completed_and_paid'),
+
     ]
 
 urlpatterns += [

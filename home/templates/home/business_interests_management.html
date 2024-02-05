@@ -9,6 +9,7 @@
 <div class="container mt-4">
     <h2 class="mb-4">Manage Business Interests</h2>
     {% for business in businesses %}
+    {% if business.status != 'completed' %}
         <div class="card mb-3">
             <div class="card-header">
                 Business Name: {{ business.business_name }}
@@ -35,10 +36,10 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
-    {% empty %}
-        <p>No business interests to display.</p>
-    {% endfor %}
+            {% endif %}
+            {% empty %}
+                <p>No business interests to manage.</p>
+            {% endfor %}
 </div>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

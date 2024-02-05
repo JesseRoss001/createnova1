@@ -1,0 +1,43 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Completed Business Interests</h2>
+    {% for business in completed_businesses|dictsort:"completed_and_paid" %}
+        <div class="card mb-3">
+            <div class="card-header">
+                Business Name: {{ business.business_name }}
+            </div>
+            <div class="card-body">
+                <p class="card-text">Contact Email: {{ business.contact_email }}</p>
+                <p class="card-text">Industry: {{ business.industry }}</p>
+                <!-- Add a form here to submit notes -->
+                <form method="post" action="{% url 'add_business_note' business.id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="note">Add Note:</label>
+                        <textarea class="form-control" name="note" id="note" rows="2" placeholder="Enter notes about communication with the business"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Note</button>
+                </form>
+                {% if not business.completed_and_paid %}
+                <p>Status: {{ business.get_status_display }}</p>
+                {% if not business.is_sold %}
+                    <a href="{% url 'mark_business_sold' business.id %}" class="btn btn-info">Mark as Sold</a>
+                {% else %}
+                    
+                {% endif %}
+                
+                {% if business.is_sold %}
+                <a href="{% url 'mark_completed_and_paid' business.id %}" class="btn btn-success">Project Completed and Paid For</a>
+                {% endif %}
+                {% endif %}
+                <a href="{% url 'delete_business_interest' business.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No completed business interests to display.</p>
+    {% endfor %}
+</div>
+{% endblock %}
