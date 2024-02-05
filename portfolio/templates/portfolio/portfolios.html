@@ -7,6 +7,11 @@
     <div class="card">
         <div class="card-header">
             Update Your Profile
+            {% if content_creator.profile_photo %}
+  <img src="{{ content_creator.profile_photo.url }}" alt="Profile photo" />
+{% else %}
+  <p>No profile photo uploaded.</p>
+{% endif %}
         </div>
         <div class="card-body">
             {% if messages %}
@@ -68,5 +73,15 @@
             input.value = socialMediaLinks['link_' + i];
         }
     }
+</script>
+<script type="text/javascript">
+    // JavaScript for checking the file size before submitting the form
+    document.getElementById('id_profile_photo').onchange = function () {
+        var file = this.files[0];
+        if (file.size > 0.3 * 1024 * 1024) {
+            alert("File size must be at most 0.3 MB!");
+            this.value = "";
+        }
+    };
 </script>
 {% endblock %}

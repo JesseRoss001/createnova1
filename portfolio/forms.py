@@ -3,6 +3,9 @@ from .models import ContentCreator, LifeCategory
 import json
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from django.template.defaultfilters import filesizeformat
+from django.conf import settings
 class ContentCreatorProfileForm(forms.ModelForm):
     social_media_link_1 = forms.URLField(required=False)
     social_media_link_2 = forms.URLField(required=False)
@@ -16,6 +19,12 @@ class ContentCreatorProfileForm(forms.ModelForm):
         widgets = {
             'life_categories': forms.CheckboxSelectMultiple,
         }
+    def clean_profile_photo(self):
+        profile_photo = self.cleaned_data.get('profile_photo')
+        if profile_photo:
+            if profile_photo.size > 0.3 * 1024 * 1024:  # 0.3 MB limit
+                raise ValidationError(_('Please keep filesize under {}. Current filesize {}').format(filesizeformat(0.3 * 1024 * 1024), filesizeformat(profile_photo.size)))
+        return profile_photo
 
     def __init__(self, *args, **kwargs):
         super(ContentCreatorProfileForm, self).__init__(*args, **kwargs)
