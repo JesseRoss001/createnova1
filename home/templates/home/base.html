@@ -68,6 +68,12 @@
 
                 <!-- Conditional Links for Authentication -->
                 {% if user.is_authenticated %}
+                    <!-- User Profile (Visible to approved content creators) -->
+    {% if is_content_creator and user.contentcreator.is_approved %}
+    <li class="nav-item {% if request.resolver_match.url_name == 'portfolios' %}active{% endif %}">
+        <a class="nav-link {% if request.resolver_match.url_name != 'portfolios' %}text-light{% endif %}" href="{% url 'portfolios' %}">Your Profile</a>
+    </li>
+{% endif %}
                     <!-- User Management (Visible to staff) -->
                     {% if is_staff_member %}
                         <li class="nav-item {% if request.resolver_match.url_name == 'user_list' %}active{% endif %}">

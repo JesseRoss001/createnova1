@@ -1,0 +1,145 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block head %}
+    {{ block.super }}
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        .container {
+            padding-top: 20px;
+        }
+
+        .frosted {
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-update, .btn-primary {
+            background-color: #C0C0C0; /* Matte silver background */
+            color: black; /* Black text */
+            border: none;
+            cursor: pointer;
+            padding:10px;
+            margin-left: 10px;
+            margin-top:8px;
+            border-radius: 8px; /* Space from the input field */
+        }
+
+        .btn-update:hover, .btn-primary:hover {
+            background-color: #A9A9A9; /* Darker shade for hover */
+        }
+
+        .btn-primary {
+            padding: 0.375rem 0.75rem; /* Bootstrap's default padding for buttons */
+        }
+
+        .tooltip-container {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 220px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="frosted">
+        <h2>Welcome, Update Your Profile</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div class="mb-3">
+                <label for="id_portfolio_url">Portfolio URL</label>
+                <input type="url" name="portfolio_url" id="id_portfolio_url" value="{{ content_creator.portfolio_url }}" class="form-control" readonly>
+                <button type="button" onclick="unlockField('id_portfolio_url')" class="btn-update">Update</button>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_expertise_area">Expertise Area</label>
+                <input type="text" name="expertise_area" id="id_expertise_area" value="{{ content_creator.expertise_area }}" class="form-control" readonly>
+                <button type="button" onclick="unlockField('id_expertise_area')" class="btn-update">Update</button>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_social_media_links">Social Media Links (JSON format)</label>
+                <textarea name="social_media_links" id="id_social_media_links" class="form-control" readonly>{{ content_creator.social_media_links|safe }}</textarea>
+                <button type="button" onclick="unlockField('id_social_media_links')" class="btn-update">Update</button>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_profile_photo">Profile Photo</label>
+                {% if content_creator.profile_photo %}
+                    <img src="{{ content_creator.profile_photo.url }}" alt="Profile photo" class="mb-2"/>
+                {% endif %}
+                <input type="file" name="profile_photo" id="id_profile_photo" class="form-control" readonly>
+                <button type="button" onclick="unlockField('id_profile_photo')" class="btn-update">Update</button>
+                <small class="form-text text-light">
+                    Max size 0.3 MB.
+                </small>
+                <div class="tooltip-container">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Use free online services like TinyPNG or ImageResize to reduce image sizes before uploading.</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- FontAwesome for icons -->
+<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
+<script>
+   function unlockField(fieldId) {
+        var field = document.getElementById(fieldId);
+        field.readOnly = false;
+        if(field.type === 'file') {
+            // Clear the file input for new file, since we can't make file input readonly
+            field.value = "";
+        }
+    }
+    // Initialize tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+{% endblock %}
