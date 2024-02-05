@@ -12,6 +12,12 @@
             <div class="card-body">
                 <p class="card-text">Contact Email: {{ business.contact_email }}</p>
                 <p class="card-text">Industry: {{ business.industry }}</p>
+                <p class="card-text">Interested Life Categories:
+                    {% for category in business.interested_life_categories.all %}
+                        {{ category.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p class="card-text">Service Package of Interest: {{ business.service_package_of_interest.name }}</p>
                 <!-- Add a form here to submit notes -->
                 <form method="post" action="{% url 'add_business_note' business.id %}">
                     {% csrf_token %}
