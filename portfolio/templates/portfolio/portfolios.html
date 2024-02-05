@@ -80,7 +80,7 @@
                 <div class="alert alert-info">{{ message }}</div>
             {% endfor %}
         {% endif %}
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" onsubmit="saveSocialMediaLinks()">
             {% csrf_token %}
             {{ form.non_field_errors }}
 
@@ -102,12 +102,13 @@
                     <div class="input-group mb-2">
                         <input type="text" name="social_media_{{ url_name }}" value="{{ url }}" class="form-control" placeholder="{{ url_name|capfirst }} URL" readonly>
                         <div class="input-group-append">
-                            <button class="btn btn-danger" type="button" onclick="removeField(this)">Remove</button>
+                            <button class="btn btn-danger" type="button" onclick="removeField(this, '{{ url_name }}')">Remove</button>
                         </div>
                     </div>
                 {% endfor %}
                 <div id="social-media-fields"></div>
                 <button type="button" class="btn btn-secondary" onclick="addField()">Add Link</button>
+                <input type="hidden" name="social_media_links" id="id_social_media_links">
             </div>
 
             <div class="mb-3">
@@ -130,26 +131,28 @@
         </form>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- FontAwesome for icons -->
 <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
-<script>
 
-   function unlockField(fieldId) {
+<script>
+    function unlockField(fieldId) {
         var field = document.getElementById(fieldId);
         field.readOnly = false;
-        if(field.type === 'file') {
+        if (field.type === 'file') {
             // Clear the file input for new file, since we can't make file input readonly
             field.value = "";
         }
     }
+
     function addField() {
         const container = document.getElementById('social-media-fields');
         const fieldHTML = `
             <div class="input-group mb-2">
-                <input type="text" name="social_media_links[]" class="form-control" placeholder="Social Media URL">
+                <input type="text" class="form-control new-social-media" placeholder="Social Media URL">
                 <div class="input-group-append">
                     <button class="btn btn-danger" type="button" onclick="removeField(this)">Remove</button>
                 </div>
@@ -159,78 +162,47 @@
 
     function removeField(btn) {
         const fieldGroup = btn.closest('.input-group');
+        if (!btn.classList.contains('new-social-media')) {
+            // If it's not a newly added field, we should update the hidden field with JSON
+            const input = fieldGroup.querySelector('input');
+            const name = input.name.split('social_media_')[1];
+            const socialMediaLinks = JSON.parse(document.getElementById('id_social_media_links').value || '{}');
+            delete socialMediaLinks[name];
+            document.getElementById('id_social_media_links').value = JSON.stringify(socialMediaLinks);
+        }
         fieldGroup.remove();
     }
 
+    function saveSocialMediaLinks(event) {
+        event.preventDefault(); // Prevent form from submitting before we save the links
+
+        // Collect all social media links from existing inputs
+        const socialMediaLinks = {};
+        document.querySelectorAll('[name^="social_media_"]').forEach(input => {
+            const name = input.name.split('social_media_')[1];
+            socialMediaLinks[name] = input.value;
+        });
+
+        // Collect newly added links
+        document.querySelectorAll('.new-social-media').forEach(input => {
+            if (input.value.trim() !== '') {
+                const platformName = prompt("Please enter the name of the social media platform for this URL:");
+                if (platformName) {
+                    socialMediaLinks[platformName] = input.value;
+                }
+            }
+        });
+
+        // Set the social media links in the hidden input as a JSON string
+        document.getElementById('id_social_media_links').value = JSON.stringify(socialMediaLinks);
+
+        // Now submit the form
+        document.querySelector('form').submit();
+    }
     // Initialize tooltips
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
-    function removeField(btn) {
-    const fieldGroup = btn.closest('.input-group');
-    fieldGroup.remove();
-}
-
-function addField() {
-    const container = document.getElementById('social-media-fields');
-    const fieldHTML = `
-        <div class="input-group mb-2">
-            <input type="text" name="new_social_media_links[]" class="form-control" placeholder="Social Media URL">
-            <div class="input-group-append">
-                <button class="btn btn-danger" type="button" onclick="removeField(this)">Remove</button>
-            </div>
-        </div>`;
-    container.insertAdjacentHTML('beforeend', fieldHTML);
-}
-
-function removeField(btn) {
-    const fieldGroup = btn.closest('.input-group');
-    fieldGroup.remove();
-}
-function saveSocialMediaLinks() {
-    // Collect all social media links from the form
-    const socialMediaLinks = {};
-    const socialMediaInputs = document.querySelectorAll('[name^="social_media_"]');
-    
-    socialMediaInputs.forEach(input => {
-        const name = input.name.split('_')[2]; // Extract the social media platform name
-        const url = input.value;
-        socialMediaLinks[name] = url;
-    });
-
-    // Collect newly added links
-    const newSocialMediaInputs = document.querySelectorAll('[name="new_social_media_links[]"]');
-    
-    newSocialMediaInputs.forEach(input => {
-        const url = input.value;
-        // Add these links to the socialMediaLinks object as well
-        socialMediaLinks['new'] = url;
-    });
-
-    // Convert the object to a JSON string
-    const socialMediaJSON = JSON.stringify(socialMediaLinks);
-
-    // Create a hidden input field to store the JSON data
-    const hiddenInput = document.createElement('input');
-    hiddenInput.type = 'hidden';
-    hiddenInput.name = 'social_media_links';
-    hiddenInput.value = socialMediaJSON;
-
-    // Append the hidden input to the form
-    const form = document.querySelector('form');
-    form.appendChild(hiddenInput);
-
-    // Log the social media links data for debugging
-    console.log(socialMediaJSON);
-
-    // Submit the form to save the data
-    form.submit();
-}
-
-// Initialize tooltips
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-});
 </script>
 
 {% endblock %}

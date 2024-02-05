@@ -5,7 +5,7 @@ from services.models import LifeCategory
 
 from django.conf import settings
 class ContentCreator(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='contentcreator')
     portfolio_url = models.URLField(blank=True)
     profile_photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
     expertise_area = models.CharField(max_length=100)
