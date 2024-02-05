@@ -18,14 +18,30 @@ def your_profile_view(request):
     if request.method == 'POST':
         form = ContentCreatorProfileForm(request.POST, request.FILES, instance=content_creator)
         if form.is_valid():
-            # This will now include the combined JSON for the social media links
-            form.save()
+            content_creator = form.save(commit=False)
+            # Serialize social media links into JSON before saving the model
+            social_media_links = {}
+            for i in range(1, 6):
+                link = form.cleaned_data.get(f'social_media_link_{i}')
+                if link:
+                    social_media_links[f'link_{i}'] = link
+            content_creator.social_media_links = json.dumps(social_media_links)
+            content_creator.save()
+            form.save_m2m()  # Don't forget to save many-to-many fields if commit=False
             messages.success(request, 'Your profile has been updated successfully.')
             return redirect('your_profile')
         else:
             messages.error(request, 'Please correct the errors below.')
     else:
         form = ContentCreatorProfileForm(instance=content_creator)
+        # Ensure social_media_links is a valid JSON string
+        try:
+            social_media_links = json.loads(content_creator.social_media_links) if content_creator.social_media_links else {}
+        except json.JSONDecodeError:
+            social_media_links = {}
 
-    # No need to separately process social_media_links_json now
-    return render(request, 'portfolio/portfolios.html', {'form': form})
+    context = {
+        'form': form,
+        'social_media_links': social_media_links,
+    }
+    return render(request, 'portfolio/portfolios.html', context)

@@ -13,16 +13,19 @@ class ContentCreatorProfileForm(forms.ModelForm):
     class Meta:
         model = ContentCreator
         fields = ['portfolio_url', 'expertise_area', 'profile_photo', 'life_categories']
-        # Note: 'social_media_links' is not included here since it's handled separately
+        widgets = {
+            'life_categories': forms.CheckboxSelectMultiple,
+        }
 
-    def clean(self):
-        cleaned_data = super().clean()
-        social_media_links = {}
-
-        for i in range(1, 6):
-            link = cleaned_data.get(f'social_media_link_{i}')
-            if link:
-                social_media_links[f'link_{i}'] = link
-
-        cleaned_data['social_media_links'] = json.dumps(social_media_links)
-        return cleaned_data
+    def __init__(self, *args, **kwargs):
+        super(ContentCreatorProfileForm, self).__init__(*args, **kwargs)
+        if self.instance:
+            # Initialize an empty dict if social_media_links is empty or not valid JSON
+            try:
+                social_media_links = json.loads(self.instance.social_media_links) if self.instance.social_media_links else {}
+            except json.JSONDecodeError:
+                social_media_links = {}
+            
+            for i in range(1, 6):
+                field_name = f'social_media_link_{i}'
+                self.fields[field_name].initial = social_media_links.get(f'link_{i}', '')

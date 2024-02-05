@@ -57,4 +57,16 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var socialMediaLinks = {{ social_media_links|safe }};
+</script>
+<script>
+    // JavaScript to populate the social media link input fields
+    for (var i = 1; i <= 5; i++) {
+        var input = document.getElementById('social_media_link_' + i);
+        if (input && socialMediaLinks['link_' + i]) {
+            input.value = socialMediaLinks['link_' + i];
+        }
+    }
+</script>
 {% endblock %}
