@@ -1,31 +1,28 @@
 from django import forms
-from portfolio.models import ContentCreator
+from .models import ContentCreator, LifeCategory
 import json
+from django import forms
 from django.core.exceptions import ValidationError
-
-MAX_UPLOAD_SIZE = 300 * 1024  # 300 KB
-
 class ContentCreatorProfileForm(forms.ModelForm):
+    social_media_link_1 = forms.URLField(required=False)
+    social_media_link_2 = forms.URLField(required=False)
+    social_media_link_3 = forms.URLField(required=False)
+    social_media_link_4 = forms.URLField(required=False)
+    social_media_link_5 = forms.URLField(required=False)
+
     class Meta:
         model = ContentCreator
-        fields = ['portfolio_url', 'expertise_area', 'profile_photo', 'social_media_links']
-    social_media_links = forms.CharField(
-        widget=forms.Textarea,
-        help_text='Enter your social media links in JSON format. Example: {"twitter": "http://twitter.com/yourprofile"}',
-        required=False
-    )
-    def clean_profile_photo(self):
-        profile_photo = self.cleaned_data.get('profile_photo')
-        if profile_photo and profile_photo.size > MAX_UPLOAD_SIZE:
-            raise ValidationError(f"Image file too large ( > 0.3 MB )")
-        return profile_photo
+        fields = ['portfolio_url', 'expertise_area', 'profile_photo', 'life_categories']
+        # Note: 'social_media_links' is not included here since it's handled separately
 
-    def clean_social_media_links(self):
-        links = self.cleaned_data.get('social_media_links')
-        if links:
-            try:
-                # Ensure it's a valid JSON
-                json.loads(links)
-            except ValueError:
-                raise ValidationError('Invalid JSON format for social media links.')
-        return links
+    def clean(self):
+        cleaned_data = super().clean()
+        social_media_links = {}
+
+        for i in range(1, 6):
+            link = cleaned_data.get(f'social_media_link_{i}')
+            if link:
+                social_media_links[f'link_{i}'] = link
+
+        cleaned_data['social_media_links'] = json.dumps(social_media_links)
+        return cleaned_data
