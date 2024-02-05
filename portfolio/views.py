@@ -12,28 +12,34 @@ def your_profile_view(request):
         messages.error(request, 'Your account is pending approval.')
         return redirect('home')
 
-    initial_data = {}
-    if content_creator.social_media_links:
-        # Convert the JSON string back to a Python dictionary
-        initial_data['social_media_links'] = json.loads(content_creator.social_media_links)
-    else:
-        initial_data['social_media_links'] = {}
-
     if request.method == 'POST':
-        form = ContentCreatorProfileForm(request.POST, request.FILES, instance=content_creator)
-
-        # Add logic to pack social media links into JSON before saving
+        # Create a dictionary to store social media links
         social_media_links = {}
-        for key in request.POST:
+        for key, value in request.POST.items():
             if key.startswith('social_media_'):
-                social_media_links[key] = request.POST[key]
-        content_creator.social_media_links = json.dumps(social_media_links)
+                platform_name = key.split('_')[-1]
+                social_media_links[platform_name] = value
 
+        # Convert the dictionary to a JSON string
+        social_media_json = json.dumps(social_media_links)
+
+        # Update the content_creator's social_media_links field
+        content_creator.social_media_links = social_media_json
+
+        # Process the form
+        form = ContentCreatorProfileForm(request.POST, request.FILES, instance=content_creator)
         if form.is_valid():
             form.save()
             messages.success(request, 'Your profile has been updated successfully.')
             return redirect('yourprofile')
     else:
+        initial_data = {}
+        if content_creator.social_media_links:
+            # Convert the JSON string back to a Python dictionary
+            initial_data['social_media_links'] = json.loads(content_creator.social_media_links)
+        else:
+            initial_data['social_media_links'] = {}
+
         form = ContentCreatorProfileForm(initial=initial_data, instance=content_creator)
 
     context = {

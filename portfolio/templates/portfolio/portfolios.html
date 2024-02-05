@@ -98,9 +98,9 @@
 
             <div class="mb-3">
                 <label>Social Media Links</label>
-                {% for url_name, url in content_creator.get_social_media_links.items %}
+                {% for url_name, url in content_creator.social_media_links.items %}
                     <div class="input-group mb-2">
-                        <input type="text" name="social_media_{{ url_name }}" value="{{ url }}" class="form-control" placeholder="{{ url_name|capfirst }} URL">
+                        <input type="text" name="social_media_{{ url_name }}" value="{{ url }}" class="form-control" placeholder="{{ url_name|capfirst }} URL" readonly>
                         <div class="input-group-append">
                             <button class="btn btn-danger" type="button" onclick="removeField(this)">Remove</button>
                         </div>
@@ -166,6 +166,71 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
+    function removeField(btn) {
+    const fieldGroup = btn.closest('.input-group');
+    fieldGroup.remove();
+}
+
+function addField() {
+    const container = document.getElementById('social-media-fields');
+    const fieldHTML = `
+        <div class="input-group mb-2">
+            <input type="text" name="new_social_media_links[]" class="form-control" placeholder="Social Media URL">
+            <div class="input-group-append">
+                <button class="btn btn-danger" type="button" onclick="removeField(this)">Remove</button>
+            </div>
+        </div>`;
+    container.insertAdjacentHTML('beforeend', fieldHTML);
+}
+
+function removeField(btn) {
+    const fieldGroup = btn.closest('.input-group');
+    fieldGroup.remove();
+}
+function saveSocialMediaLinks() {
+    // Collect all social media links from the form
+    const socialMediaLinks = {};
+    const socialMediaInputs = document.querySelectorAll('[name^="social_media_"]');
+    
+    socialMediaInputs.forEach(input => {
+        const name = input.name.split('_')[2]; // Extract the social media platform name
+        const url = input.value;
+        socialMediaLinks[name] = url;
+    });
+
+    // Collect newly added links
+    const newSocialMediaInputs = document.querySelectorAll('[name="new_social_media_links[]"]');
+    
+    newSocialMediaInputs.forEach(input => {
+        const url = input.value;
+        // Add these links to the socialMediaLinks object as well
+        socialMediaLinks['new'] = url;
+    });
+
+    // Convert the object to a JSON string
+    const socialMediaJSON = JSON.stringify(socialMediaLinks);
+
+    // Create a hidden input field to store the JSON data
+    const hiddenInput = document.createElement('input');
+    hiddenInput.type = 'hidden';
+    hiddenInput.name = 'social_media_links';
+    hiddenInput.value = socialMediaJSON;
+
+    // Append the hidden input to the form
+    const form = document.querySelector('form');
+    form.appendChild(hiddenInput);
+
+    // Log the social media links data for debugging
+    console.log(socialMediaJSON);
+
+    // Submit the form to save the data
+    form.submit();
+}
+
+// Initialize tooltips
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
 </script>
 
 {% endblock %}

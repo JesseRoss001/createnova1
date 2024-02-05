@@ -4,7 +4,15 @@ import json
 from django.core.exceptions import ValidationError
 
 MAX_UPLOAD_SIZE = 300 * 1024  # 300 KB
+
 class ContentCreatorProfileForm(forms.ModelForm):
+    # Define a new field for social media links
+    new_social_media_links = forms.CharField(
+        label='New Social Media Links',
+        required=False,  # It's not required since some may be removed
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Social Media URL'}),
+    )
+
     class Meta:
         model = ContentCreator
         fields = ['portfolio_url', 'expertise_area', 'profile_photo']
@@ -14,4 +22,4 @@ class ContentCreatorProfileForm(forms.ModelForm):
         profile_photo = self.cleaned_data.get('profile_photo')
         if profile_photo and profile_photo.size > MAX_UPLOAD_SIZE:
             raise ValidationError(f"Image file too large ( > 0.3 MB )")
-        return profile_photo    
+        return profile_photo
