@@ -15,7 +15,7 @@ class ContentCreatorSignUpForm(UserCreationForm):
     portfolio_url = forms.URLField(required=False, help_text="Optional: Your portfolio website URL or PDF link")
     expertise_area = forms.CharField(max_length=100)
     social_media_links = forms.CharField(required=False, widget=forms.HiddenInput())  # Store as JSON
-    profile_photo = forms.ImageField(required=False)
+    
     life_categories = forms.ModelMultipleChoiceField(
         queryset=LifeCategory.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -24,7 +24,7 @@ class ContentCreatorSignUpForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = UserCreationForm.Meta.fields + ('portfolio_url', 'expertise_area', 'social_media_links', 'profile_photo', 'life_categories')
+        fields = UserCreationForm.Meta.fields + ('portfolio_url', 'expertise_area', 'social_media_links', 'life_categories')
 
     def save(self, commit=True):
         user = super().save(commit=False)

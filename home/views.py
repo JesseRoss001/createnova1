@@ -104,7 +104,7 @@ def register_content_creator(request):
                 portfolio_url=form.cleaned_data.get('portfolio_url'),
                 expertise_area=form.cleaned_data.get('expertise_area'),
                 social_media_links=form.cleaned_data.get('social_media_links'),
-                profile_photo=form.cleaned_data.get('profile_photo')  # Assuming you handle the profile photo upload
+                
             )
             # Assign selected categories to the content creator
             content_creator.life_categories.set(form.cleaned_data.get('life_categories'))
