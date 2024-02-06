@@ -2,16 +2,87 @@
 {% load static %}
 
 {% block content %}
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #000; /* Black background */
+    color: white;
+  }
+
+  .container {
+    
+    background-color: rgba(255, 255, 255, 0.8); /* Frosted white background */
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 0, 0, 0.5); /* Red glow */
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 1rem;
+    border: 1px solid #dee2e6; /* Bootstrap's default border color */
+  }
+
+  .card {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque white for contrast */
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    overflow: hidden; /* Ensures the content doesn't spill out */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 0, 0, 0.5); /* Red glow */
+  }
+
+  .card-header {
+    background-color: #ff0000; /* Red background */
+    color: #fff; /* White text */
+  }
+
+  .card-header:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #ff0000); /* Gradient effect */
+  }
+
+  .btn-primary {
+    background-color: #ff0000; /* Red background */
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #e60000; /* Darker red on hover */
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); /* Intense red glow on hover */
+  }
+
+  .form-control, .form-select {
+    border: 2px solid #ff0000; /* Red border */
+    background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent white */
+  }
+
+  .input-group-text {
+    background-color: #ff0000; /* Red background */
+    border: 2px solid #ff0000; /* Red border */
+    color: white;
+  }
+  </style>
+
 <div class="container mt-4">
+    <form method="get">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search completed businesses" name="search" value="{{ request.GET.search }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
     <h2 class="mb-4">Completed Business Interests</h2>
     {% for business in completed_businesses|dictsort:"completed_and_paid" %}
-        <div class="card mb-3">
-            <div class="card-header">
-                Business Name: {{ business.business_name }}
-            </div>
-            <div class="card-body">
+    <div class="card mb-3 shadow-sm">
+        <div class="card-header bg-dark text-white">
+            Business Name: {{ business.business_name }}
+        </div>
+        <div class="card-body">
                 <p class="card-text">Contact Email: {{ business.contact_email }}</p>
                 <p class="card-text">Industry: {{ business.industry }}</p>
+                <p class="card-text">Time Created: {{ business.time_created|date:"Y-m-d H:i" }}</p>
                 <p class="card-text">Interested Life Categories:
                     {% for category in business.interested_life_categories.all %}
                         {{ category.name }}{% if not forloop.last %}, {% endif %}
@@ -22,15 +93,15 @@
                 <form method="post" action="{% url 'add_business_note' business.id %}">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="note">Add Note:</label>
-                        <textarea class="form-control" name="note" id="note" rows="2" placeholder="Enter notes about communication with the business"></textarea>
+                        <label for="note{{ forloop.counter }}">Add Note:</label>
+                        <textarea class="form-control" name="note" id="note{{ forloop.counter }}" rows="2" placeholder="Enter notes about communication with the business">{{ business.notes }}</textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Note</button>
+                    <button type="submit" class="btn btn-primary mt-2">Add Note</button>
                 </form>
                 {% if not business.completed_and_paid %}
                 <p>Status: {{ business.get_status_display }}</p>
                 {% if not business.is_sold %}
-                    <a href="{% url 'mark_business_sold' business.id %}" class="btn btn-info">Mark as Sold</a>
+                    <a href="{% url 'mark_business_sold' business.id %}" class="btn btn-info pt-2">Mark as Sold</a>
                 {% else %}
                     
                 {% endif %}
@@ -39,7 +110,7 @@
                 <a href="{% url 'mark_completed_and_paid' business.id %}" class="btn btn-success">Project Completed and Paid For</a>
                 {% endif %}
                 {% endif %}
-                <a href="{% url 'delete_business_interest' business.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'delete_business_interest' business.id %}" class="btn btn-danger mt-2">Delete</a>
             </div>
         </div>
     {% empty %}

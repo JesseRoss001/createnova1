@@ -1,6 +1,7 @@
 from django.db import models
 from user_management.models import StaffMember
 from services.models import LifeCategory
+from django.utils.timezone import now
 
 class ServicePackage(models.Model):
     name = models.CharField(max_length=100)
@@ -24,6 +25,8 @@ class Business(models.Model):
     is_sold = models.BooleanField(default=False)
     notes = models.TextField(blank=True, null=True)
     completed_and_paid = models.BooleanField(default=False)
+    # Add a new field with a default value
+    time_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.business_name

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden, HttpResponse
-from .forms import ContentCreatorSignUpForm, StaffSignUpForm, LoginForm
+from .forms import ContentCreatorSignUpForm, StaffSignUpForm, LoginForm, BusinessNoteForm
 from user_management.models import StaffMember
 from portfolio.models import ContentCreator
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -201,9 +201,22 @@ def deny_business_interest(request, business_id):
 
 
 @login_required
-@user_passes_test(lambda u: StaffMember.objects.filter(user=u).exists())
+@user_passes_test(lambda u: u.is_staff)
 def completed_business_interests(request):
+    search_query = request.GET.get('search', '')
     completed_businesses = Business.objects.filter(status='completed')
+
+    # Add filtering based on search query
+    if search_query:
+        completed_businesses = completed_businesses.filter(
+            Q(business_name__icontains=search_query) |
+            Q(contact_email__icontains=search_query) |
+            Q(industry__icontains=search_query) |
+            Q(notes__icontains=search_query) |
+            Q(service_package_of_interest__name__icontains=search_query) |
+            Q(interested_life_categories__name__icontains=search_query)
+        ).distinct()
+
     return render(request, 'home/completed_business_interests.html', {'completed_businesses': completed_businesses})
 
 @login_required
