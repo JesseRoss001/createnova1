@@ -11,6 +11,7 @@ from django.views.generic import ListView
 from django.http import JsonResponse
 from testimonials.models import Business
 from services.models import LifeCategory
+from django.db.models import Q
 
 def home(request):
     user = request.user
@@ -245,3 +246,39 @@ def mark_completed_and_paid(request, business_id):
     business.save()
     messages.success(request, f"Project with {business.business_name} has been marked as completed and paid for.")
     return redirect('completed_business_interests')
+@login_required
+def content_creator_profiles(request):
+    if not request.user.is_staff:
+        # Handle unauthorized access
+        return render(request, 'home/not_allowed.html', status=403)
+
+    keyword = request.GET.get('keyword', '')
+    lifestyle = request.GET.get('lifestyle', '')
+
+    creators_query = ContentCreator.objects.filter(is_approved=True)
+
+    # Filter by keyword
+    if keyword:
+        creators_query = creators_query.filter(
+            Q(user__username__icontains=keyword) |
+            Q(user__first_name__icontains=keyword) |
+            Q(user__last_name__icontains=keyword) |
+            Q(expertise_area__icontains=keyword) |
+            Q(portfolio_url__icontains=keyword) |
+            Q(social_media_links__icontains=keyword)
+        )
+
+    # Filter by lifestyle category
+    if lifestyle:
+        creators_query = creators_query.filter(life_categories__id=lifestyle)
+
+    creators = creators_query.distinct()
+
+    life_categories = LifeCategory.objects.all()
+
+    context = {
+        'creators': creators,
+        'life_categories': life_categories,
+        'request': request,
+    }
+    return render(request, 'home/content_creator_profiles.html', context)

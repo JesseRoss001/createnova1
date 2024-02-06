@@ -21,8 +21,8 @@ urlpatterns = [
     path('business/mark_sold/<int:business_id>/', views.mark_business_sold, name='mark_business_sold'),
     path('business/delete/<int:business_id>/', views.delete_business_interest, name='delete_business_interest'),
     path('business/completed_and_paid/<int:business_id>/', views.mark_completed_and_paid, name='mark_completed_and_paid'),
-
-    ]
+    path('creators/', views.content_creator_profiles, name='content_creator_profiles'),
+]
 
 urlpatterns += [
     # ... other url patterns ...

@@ -1,0 +1,43 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Content Creator Profiles</h2>
+    
+    <!-- Search form -->
+    <form method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by keyword" name="keyword" value="{{ request.GET.keyword }}">
+            <select class="form-select" name="lifestyle">
+                <option value="">Choose Lifestyle Category</option>
+                {% for category in life_categories %}
+                <option value="{{ category.id }}" {% if request.GET.lifestyle == category.id|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+    {% for creator in creators %}
+    <div class="card my-2">
+        <div class="card-header">
+            {{ creator.user.username }} - {{ creator.expertise_area }}
+        </div>
+        <div class="card-body">
+            <p><strong>Full Name:</strong> {{ creator.user.get_full_name }}</p>
+            <p><strong>Portfolio URL:</strong> <a href="{{ creator.portfolio_url }}" target="_blank">{{ creator.portfolio_url }}</a></p>
+            <p><strong>Social Media Links:</strong> {{ creator.social_media_links|safe }}</p>
+            <p><strong>Life Categories:</strong></p>
+            <ul>
+                {% for category in creator.life_categories.all %}
+                <li>{{ category.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% empty %}
+    <p>No content creators found.</p>
+    {% endfor %}
+</div>
+{% endblock %}
