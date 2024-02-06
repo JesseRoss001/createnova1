@@ -17,7 +17,7 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% endblock %}
+    {% endblock head %}
 </head>
 <body>
     {% block navbar %}
@@ -47,19 +47,18 @@
                             <a class="nav-link {% if request.resolver_match.url_name != 'creator_services' %}text-light{% endif %}" href="{% url 'creator_services' %}"><i class="fas fa-paint-brush"></i> Creator Services</a>
                         </li>
                         <!-- Additional nav items -->
-                        {% if user.is_authenticated %}
+                        
+
+                            {% if user.is_authenticated %}
+                                                        {% if not user.is_staff_member %}
                         <li class="nav-item {% if request.resolver_match.url_name == 'your_profile' %}active{% endif %}">
                             <a class="nav-link {% if request.resolver_match.url_name != 'your_profile' %}text-light{% endif %}" href="{% url 'your_profile' %}"><i class="fas fa-user"></i> Your Profile</a>
                         </li>
-                        {% if is_staff_member %}
-                        <li class="nav-item {% if request.resolver_match.url_name == 'user_list' %}active{% endif %}">
-                            <a class="nav-link {% if request.resolver_match.url_name != 'user_list' %}text-light{% endif %}" href="{% url 'user_list' %}">
-                                <i class="fas fa-users-cog"></i> User Management</a>
-                            </li>
-                            {% endif %}
+                        {% endif %}
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                             </li>
+
                             {% else %}
                             <li class="nav-item {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
                                 <a class="nav-link {% if request.resolver_match.url_name != 'login' %}text-light{% endif %}" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>

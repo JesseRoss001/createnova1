@@ -89,10 +89,10 @@
     {% for creator in creators %}
     <div class="card my-2">
         <div class="card-header">
-            {{ creator.user.username }} - {{ creator.expertise_area }}
+            {{ creator.user.username }} 
         </div>
         <div class="card-body">
-            <p><strong>Full Name:</strong> {{ creator.user.get_full_name }}</p>
+            <p><strong>Expertise - {{ creator.expertise_area }} </strong></p>
             <p><strong>Portfolio URL:</strong> <a href="{{ creator.portfolio_url }}" target="_blank">{{ creator.portfolio_url }}</a></p>
             <p><strong>Social Media Links:</strong> {{ creator.social_media_links|safe }}</p>
             <p><strong>Life Categories:</strong></p>
