@@ -97,31 +97,49 @@
         .roles-responsibilities-info {
             background: linear-gradient(135deg, #ffffff, #ff0000, #000000);
         }
-        .card-img-top {}
+        /* Additional styles for responsiveness and layout adjustments */
+.card-img-top {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.bg-white {
+    background-color: #fff !important;
+}
+
+.display-4 {
+    font-size: 2.5rem;
+}
+
+.lead {
+    font-size: 1.25rem;
+}
+
         /* Unique Gradient Styles for Content Creator Page */
 
     </style>
 </head>
-<main class="creator-services-main">
-    <section class="intro-section">
+<main class="creator-services-main bg-white">
+    <section class="intro-section bg-white">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center mt-5">
-                    <h1>Welcome to Our Content Creator Platform</h1>
-                    <p>We are excited to have you on board as a content creator! At our platform, we provide you with a
-                        wide range of opportunities and support to help you succeed in your creative journey.</p>
+                    <h1 class="display-4">Welcome to Our Content Creator Platform</h1>
+                    <p class="lead">We are excited to have you on board as a content creator! At our platform, we provide you with a wide range of opportunities and support to help you succeed in your creative journey.</p>
                     <p>Explore the benefits and services we offer below, and start creating amazing content today.</p>
                 </div>
             </div>
         </div>
     </section>
-    <div class="ms-5 me-5 py-5">
+    <div class="ms-1 me-1 py-5">
         <div class="row d-flex align-items-center justify-content-center g-lg-1">
             <!-- Analytics Support -->
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background analytics-support-info">
                     <div class="glass-effect card d-flex justify-content-center align-items-center me-3 mb-3">
-                        <div class="m-5 p-5">
+                        <div >
                             <img class="card-img-top w-100" src="{% static 'images/ci10.png' %}" alt="Card image cap">
                         </div>
                             <div class="card-body">
@@ -138,7 +156,7 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background creator-safeguarding-info">
                     <div class="glass-effect">
-                        <div class="m-5 p-5">
+                        <div >
                         <img class="card-img-top w-100" src="{% static 'images/ci1.png' %}" alt="Commitment and Safeguarding">
                     </div>
                         <h2 class="text-dark"><i class="fas fa-shield-alt icon-style"></i>Commitment and Safeguarding</h2>
@@ -152,7 +170,7 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background freedom-flexibility-info">
                     <div class="glass-effect">
-                                                <div class="m-5 p-5">
+                                                <div>
                         <img class="card-img-top w-100" src="{% static 'images/ci3.png' %}" alt="Freedom and Flexibility">
                     </div>
                         <h2 class="text-danger"><i class="fas fa-hand-paper icon-style"></i>Freedom and Flexibility</h2>
@@ -166,7 +184,7 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background opportunities-benefits-listing">
                     <div class="glass-effect">
-                                                       <div class="m-5 p-5">
+                                                       <div >
                         <img class="card-img-top w-100" src="{% static 'images/ci7.png' %}" alt="Freedom and Flexibility">
                     </div>
                         <h2><i class="fas fa-gift icon-style"></i>Opportunities and Perks</h2>
@@ -180,7 +198,7 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background content-creator-advertising">
                     <div class="glass-effect">
-                        <div class="m-5 p-5">
+                        <div >
                             <img class="card-img-top w-100" src="{% static 'images/ci5.png' %}" alt="Freedom and Flexibility">
                         </div>
                         <h2 class="text-dark"><i class="fas fa-bullhorn icon-style"></i>Advertising Opportunities</h2>
@@ -205,7 +223,7 @@
                     <div class="col-12 col-md-6 col-lg-4 mb-4">
                         <div class="gradient-background analytics-support-info">
                             <div class="glass-effect">
-                                         <div class="m-5 p-5">
+                                         <div >
                             <img class="card-img-top w-100" src="{% static 'images/ci6.png' %}" alt="Freedom and Flexibility">
                         </div>
                             <div class="card-body">
@@ -222,7 +240,7 @@
                         <div class="gradient-background analytics-support-info">
                             <div class="glass-effect  card d-flex justify-content-center align-items-center me-3 mb-3">
                                
-                                <div class="m-5 p-5">
+                                <div >
                                     <img class="card-img-top w-100" src="{% static 'images/ci4.png' %}" alt="Card image cap">
                                 </div>
                             <div class="card-body">
@@ -239,7 +257,7 @@
                         <div class="gradient-background analytics-support-info">
                             <div class="glass-effect card d-flex justify-content-center align-items-center me-3 mb-3">
                                
-                                <div class="m-5 p-5">
+                                <div>
                                     <img class="card-img-top w-100" src="{% static 'images/ci9.png' %}" alt="Card image cap">
                                 </div>
                             <div class="card-body">
@@ -256,7 +274,7 @@
                         <div class="gradient-background analytics-support-info">
                             <div class="glass-effect card d-flex justify-content-center align-items-center me-3 mb-3">
                                
-                                <div class="m-5 p-5">
+                                <div >
                                     <img class="card-img-top w-100" src="{% static 'images/ci2.png' %}" alt="Card image cap">
                                 </div>
                             <div class="card-body">
