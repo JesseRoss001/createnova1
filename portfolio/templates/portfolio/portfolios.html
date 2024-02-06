@@ -2,86 +2,131 @@
 {% load static %}
 
 {% block content %}
+<!-- Bootstrap CSS link -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-<div class="container mt-3">
-    <div class="card">
-        <div class="card-header">
+<style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #121212; /* Shaded black background */
+      color: white;
+    }
+    .container {
+      max-width: 960px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-top: 20px;
+      font-size: 1rem;
+      border: 1px solid #dee2e6; /* Bootstrap's default border color */
+    }
+    .card-header {
+      background-color: #ff0000; /* Red background */
+      color: #fff; /* White text */
+      border-bottom: 2px solid #000; /* Black bottom border */
+    }
+    .btn-primary {
+      background-color: #ff0000; /* Red background */
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #e60000; /* Darker red on hover */
+    }
+    .form-check-input {
+      width: 20px; /* Larger checkbox */
+      height: 20px; /* Larger checkbox */
+      margin-top: 3px;
+      margin-left: 0;
+      vertical-align: middle;
+    }
+    .form-check-label {
+      margin-left: 8px;
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+    .form-check {
+      padding-left: 0; /* Align checkbox with label */
+    }
+    /* Custom styles for Life Categories to be aligned in grid */
+    .life-categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+  </style>
+  
+  
+  <div class="bg-shaded-black">
+    <div class="container mt-3">
+      <div class="sleek-container">
+        <div class="card">
+          <div class="card-header text-center">
             Update Your Profile
-            {% if content_creator.profile_photo %}
-  <img src="{{ content_creator.profile_photo.url }}" alt="Profile photo" />
-{% else %}
-  <p>No profile photo uploaded.</p>
-{% endif %}
-        </div>
-        <div class="card-body">
+          </div>
+          <div class="card-body">
             {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                {% endfor %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+              {% endfor %}
             {% endif %}
             <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ form.portfolio_url.label_tag }}
-                    <input type="text" name="{{ form.portfolio_url.html_name }}" value="{{ form.portfolio_url.value|default_if_none:"" }}" class="form-control" id="{{ form.portfolio_url.id_for_label }}" />
-                </div>
-                <div class="form-group">
-                    {{ form.expertise_area.label_tag }}
-                    <input type="text" name="{{ form.expertise_area.html_name }}" value="{{ form.expertise_area.value|default_if_none:"" }}" class="form-control" id="{{ form.expertise_area.id_for_label }}" />
-                </div>
-                <div class="form-group">
-                    {{ form.profile_photo.label_tag }}
-                    <input type="file" name="{{ form.profile_photo.html_name }}" class="form-control-file" id="{{ form.profile_photo.id_for_label }}" />
-                </div>
-                {% for i in "12345" %}
-                <div class="form-group">
-                    <label for="social_media_link_{{ forloop.counter }}">Social Media Link {{ forloop.counter }}:</label>
-                    <input type="url" id="social_media_link_{{ forloop.counter }}" name="social_media_link_{{ forloop.counter }}" class="form-control" 
-                    {% if social_media_links %}
-                    value="{{ social_media_links.forloop.counter0 }}"
-                    {% endif %}
-                    >
-                </div>
-                {% endfor %}
-                <div class="form-group">
-                    <label>Life Categories:</label>
-                    {% for category in form.life_categories %}
-                        <div class="form-check">
-                            {{ category }}
-                            <label class="form-check-label" for="{{ category.id_for_label }}">
-                                {{ category.choice_label }}
-                            </label>
-                        </div>
-                    {% endfor %}
-                </div>
-                <button type="submit" class="btn btn-primary">Update Profile</button>
-            </form>
+              {% csrf_token %}
+        <!-- Portfolio URL -->
+        <div class="form-group">
+          {{ form.portfolio_url.label_tag }}
+          <input type="text" name="{{ form.portfolio_url.html_name }}" value="{{ form.portfolio_url.value|default_if_none:'' }}" class="form-control" id="{{ form.portfolio_url.id_for_label }}" />
         </div>
+        <!-- Expertise Area -->
+        <div class="form-group">
+          {{ form.expertise_area.label_tag }}
+          <input type="text" name="{{ form.expertise_area.html_name }}" value="{{ form.expertise_area.value|default_if_none:'' }}" class="form-control" id="{{ form.expertise_area.id_for_label }}" />
+        </div>
+        <!-- Social Media Links -->
+        {% for i in "12345" %}
+        <div class="form-group">
+          <label for="social_media_link_{{ forloop.counter }}">Social Media Link {{ forloop.counter }}:</label>
+          <input type="url" id="social_media_link_{{ forloop.counter }}" name="social_media_link_{{ forloop.counter }}" class="form-control"
+          {% if social_media_links %}
+          value="{{ social_media_links.forloop.counter0 }}"
+          {% endif %}
+          >
+        </div>
+        {% endfor %}
+        <!-- Life Categories -->
+        <div class="form-group">
+          <label>Life Categories:</label>
+          <div class="d-flex flex-wrap">
+          {% for category in form.life_categories %}
+            <div class="form-check mx-2" >
+              {{ category }}
+              <label class="form-check-label " for="{{ category.id_for_label }}">
+               
+              </label>
+            </div>
+          {% endfor %}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+      </form>
     </div>
+  </div>
 </div>
+
+<!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
-    var socialMediaLinks = {{ social_media_links|safe }};
-</script>
-<script>
-    // JavaScript to populate the social media link input fields
-    for (var i = 1; i <= 5; i++) {
-        var input = document.getElementById('social_media_link_' + i);
-        if (input && socialMediaLinks['link_' + i]) {
-            input.value = socialMediaLinks['link_' + i];
-        }
+  var socialMediaLinks = {{ social_media_links|safe }};
+  // Populate the social media link input fields
+  for (var i = 1; i <= 5; i++) {
+    var input = document.getElementById('social_media_link_' + i);
+    if (input && socialMediaLinks['link_' + i]) {
+      input.value = socialMediaLinks['link_' + i];
     }
-</script>
-<script type="text/javascript">
-    // JavaScript for checking the file size before submitting the form
-    document.getElementById('id_profile_photo').onchange = function () {
-        var file = this.files[0];
-        if (file.size > 0.3 * 1024 * 1024) {
-            alert("File size must be at most 0.3 MB!");
-            this.value = "";
-        }
-    };
+  }
 </script>
 {% endblock %}
