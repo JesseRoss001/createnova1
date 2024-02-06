@@ -222,7 +222,53 @@ ul li a {
     0%, 100% { transform: translate3d(0, 0, 0); }
     50% { transform: translate3d(0, -20px, 0); }
   }
+  /* Footer Styles */
+.footer-style {
+  background-color: #000; /* Same as header for consistency */
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.footer-content a {
+  color: #fff; /* Make sure links are visible */
+  margin: 0 10px;
+  display: inline-block; /* Align icons next to each other */
+}
+
+/* Example style for LinkedIn icon, replace with actual class/id */
+.linkedin-icon {
+  width: 30px; /* Set your desired size */
+  height: auto;
+}
+
+/* Navbar Toggler Icon color change */
+.navbar-toggler-icon {
   
+  color:red !important;
+  background-color: red;/* This will make it white, adjust as needed */
+}
+
+/* Add icons to navbar links */
+.nav-link .fa { /* Assuming you are using Font Awesome */
+  margin-right: 8px; /* Spacing between icon and text */
+}
+
+/* Contact link moved to footer */
+/* ... */
+
+/* Responsive adjustments for alignment and visibility */
+@media (min-width: 992px) {
+  /* ... existing media queries ... */
+  /* Adjust navbar link colors for visibility */
+  .nav-link {
+      color: #ffffff; /* or any other color for better visibility */
+  }
+  /* Center the navbar if it's not already */
+  .navbar {
+      justify-content: center;
+  }
+}
   /* Adjustments for alignment to the bottom right */
   @media (min-width: 992px) {
     #website-services .container {
