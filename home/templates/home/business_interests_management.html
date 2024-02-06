@@ -18,6 +18,7 @@
                 <h5 class="card-title">Details</h5>
                 <p class="card-text">Contact Email: {{ business.contact_email }}</p>
                 <p class="card-text">Industry: {{ business.industry }}</p>
+                <p class="card-text">Time Created: {{ business.time_created|date:"Y-m-d H:i" }}</p>
                 <p class="card-text">Interested Life Categories:
                     {% for category in business.interested_life_categories.all %}
                         {{ category.name }}{% if not forloop.last %}, {% endif %}
