@@ -52,9 +52,7 @@
                 </li>
 
                 <!-- Gallery (Visible to all) -->
-                <li class="nav-item {% if request.resolver_match.url_name == 'gallery' %}active{% endif %}">
-                    <a class="nav-link {% if request.resolver_match.url_name != 'gallery' %}text-light{% endif %}" href="{% url 'gallery' %}">Gallery</a>
-                </li>
+
 
                 <!-- Contact (Visible to all) -->
                 <li class="nav-item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
@@ -62,9 +60,7 @@
                 </li>
 
                 <!-- Testimonials (Visible to all) -->
-                <li class="nav-item {% if request.resolver_match.url_name == 'testimonials' %}active{% endif %}">
-                    <a class="nav-link {% if request.resolver_match.url_name != 'testimonials' %}text-light{% endif %}" href="{% url 'testimonials' %}">Testimonials</a>
-                </li>
+
 
                 <!-- Conditional Links for Authentication -->
                 {% if user.is_authenticated %}
