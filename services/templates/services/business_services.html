@@ -9,6 +9,11 @@
     <!-- Custom CSS for additional styling -->
     <style>
         .service-card {
+            
+    /* Existing CSS properties */
+    width: 100%; /* Adjust the width as necessary to fill the container */
+    cursor: pointer; /* Change cursor to indicate the card is clickable */
+
             margin-bottom: 30px;
             border-radius: 8px;
             transition: transform 0.3s ease-in-out;
@@ -71,15 +76,18 @@
 </head>
 <!-- Business Services Section -->
 <section class=" card bg-light welcome-section">
-    <h1>Welcome to Our Services</h1>
-    <p>Explore our wide range of professional services designed to elevate your business and content creation endeavors.</p>
+    <h1 class="h1">Welcome to Our Services</h1>
+    <p class="h4">Explore our wide range of professional services designed to elevate your business and content creation endeavors.</p>
 </section>
-<section id="business-services" class="mt-4">
-    <div class="container">
-        <div class="row">
+<section id="business-services"  class="mt-4 w-100">
+    <div class="container w-100">
+        <div class="w-100 d-flex justify-content-center align-items-center p-3">
+        <p class="h3 justify-self-center"> Business Services </p>
+    </div>
+        <div class="row w-100">
             <!-- Websites Landing Page Card -->
-            <div class="col-md-4 glass-effect">
-                <div class="service-card">
+            <div class="col-12 col-md-4 glass-effect">
+                <div class="service-card ">
                     <img src="{% static 'images/ss1.png' %}" class="w-75 ms-5 mt-4 mb-4" alt="Service Image">
                     <div class="service-header">
                         <h3>Websites Landing Page</h3>
@@ -88,7 +96,7 @@
                         <p>Starting at IDR 1,000,000, get a professionally designed landing page that is optimized for conversions. This service includes responsive design, SEO-friendly structure, and a user-centric layout to captivate your audience.</p>
                     </div>
                     <a href="{% url 'testimonials' %}?section=websites-landing-page" class="text-decoration-none "><div class="service-footer">
-                        Starting at IDR 1,000,000
+                        <i class="fas fa-hand-pointer"></i>   Starting at IDR 1,000,000
                     </div>
                 </a>
                 </div>
@@ -105,7 +113,7 @@
                     </div>
                     <a href="{% url 'testimonials' %}?section=advertising-information-website " class="text-decoration-none  ">
                     <div class="service-footer">
-                        Starting at IDR 2,500,000
+                        <i class="fas fa-hand-pointer"></i>   Starting at IDR 2,500,000
                     </div>
                 </a>
                 </div>
@@ -122,7 +130,7 @@
                     </div>
                     <a href="{% url 'testimonials' %}?section=e-commerce-website" class="text-decoration-none ">
                     <div class="service-footer">
-                        Starting at IDR 5,000,000
+                        <i class="fas fa-hand-pointer"></i>   Starting at IDR 5,000,000
                     </div>
                 </a>
                 </div>
@@ -138,7 +146,7 @@
                         <p>Our full spectrum of support services, starting from an affordable rate, ensures your website remains up-to-date and fully functional. Maintenance, bug fixing, site hosting, database management, and ongoing improvements are all available to keep your site at peak performance.</p>
                     </div>
                     <div class="service-footer">
-                        Services available as add-ons
+                        Coming soon-Services available as add-ons
                     </div>
                 </div>
             </div>
@@ -149,6 +157,9 @@
 <!-- Content Creator Services Section -->
 <section id="creator-services" class="mt-4">
     <div class="container">
+        <div class="w-100 d-flex justify-content-center align-items-center p-3">
+            <p class="h3 justify-self-center"> Advertising Services </p>
+        </div>
         <div class="row">
             <!-- Single Advertising Card -->
             <div class="col-md-4">
@@ -162,7 +173,7 @@
                     </div>
                     <a href="{% url 'testimonials' %}?section=single-ad" class="text-decoration-none ">
                     <div class="service-footer">
-                        Starting at IDR 500,000
+                        <i class="fas fa-hand-pointer"></i>  Starting at IDR 500,000
                     </div>
                 </a>
                 </div>
@@ -180,7 +191,7 @@
                     </div>
                     <a href="{% url 'testimonials' %}?section=multi-ad" class="text-decoration-none ">
                     <div class="service-footer">
-                        Starting at IDR 1,500,000
+                        <i class="fas fa-hand-pointer"></i> Starting at IDR 1,500,000
                     </div>
                 </a>
                 </div>
@@ -197,7 +208,7 @@
                     </div>
                     <a href="{% url 'testimonials' %}?section=campaign" class="text-decoration-none ">
                     <div class="service-footer">
-                        Starting at IDR 3,000,000
+                        <i class="fas fa-hand-pointer"></i>  Starting at IDR 3,000,000
                     </div>
                 </a>
                 </div>
