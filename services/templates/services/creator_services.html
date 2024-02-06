@@ -11,7 +11,7 @@
         .gradient-background {
             border-radius: 15px;
             margin-bottom: 30px;
-            padding: 20px;
+            padding: 10px;
             color: white;
 
 
@@ -21,14 +21,11 @@
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
             padding-left: 10px;
-            padding-right:20px;
+            padding-right: 10px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-            top: 10px;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
+
         }
 
         .gradient-background h2 {
@@ -97,28 +94,28 @@
         .roles-responsibilities-info {
             background: linear-gradient(135deg, #ffffff, #ff0000, #000000);
         }
+
         /* Additional styles for responsiveness and layout adjustments */
-.card-img-top {
-    width: 100%;
-    height: 100%;
-}
+        .card-img-top {
+            width: 100%;
+            height: 100%;
+        }
 
 
 
-.bg-white {
-    background-color: #fff !important;
-}
+        .bg-white {
+            background-color: #fff !important;
+        }
 
-.display-4 {
-    font-size: 2.5rem;
-}
+        .display-4 {
+            font-size: 2.5rem;
+        }
 
-.lead {
-    font-size: 1.25rem;
-}
+        .lead {
+            font-size: 1.25rem;
+        }
 
         /* Unique Gradient Styles for Content Creator Page */
-
     </style>
 </head>
 <main class="creator-services-main bg-white">
@@ -127,27 +124,30 @@
             <div class="row">
                 <div class="col-12 text-center mt-5">
                     <h1 class="display-4">Welcome to Our Content Creator Platform</h1>
-                    <p class="lead">We are excited to have you on board as a content creator! At our platform, we provide you with a wide range of opportunities and support to help you succeed in your creative journey.</p>
+                    <p class="lead">We are excited to have you on board as a content creator! At our platform, we
+                        provide you with a wide range of opportunities and support to help you succeed in your creative
+                        journey.</p>
                     <p>Explore the benefits and services we offer below, and start creating amazing content today.</p>
                 </div>
             </div>
         </div>
     </section>
-    <div class="ms-1 me-1 py-5">
-        <div class="row d-flex align-items-center justify-content-center g-lg-1">
+    <div class=" py-5">
+        <div class="row d-flex align-items-center justify-content-center ps-4 pe-4 ms-4 me-4">
             <!-- Analytics Support -->
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background analytics-support-info">
-                    <div class="glass-effect card d-flex justify-content-center align-items-center me-3 mb-3">
-                        <div >
-                            <img class="card-img-top w-100" src="{% static 'images/ci10.png' %}" alt="Card image cap">
+                    <div class="glass-effect card d-flex justify-content-center align-items-center  mb-3">
+
+                        <img class="card-img-top w-100" src="{% static 'images/ci10.png' %}" alt="Card image cap">
+
+                        <div class="card-body bg-light border-0 rounded opacity-75">
+                            <h2><i class="fas fa-chart-line icon-style"></i>Analytics and Insights</h2>
+                            <p>Gain actionable insights with our in-depth post analysis to refine your content strategy
+                                and
+                                audience engagement.</p>
                         </div>
-                            <div class="card-body">
-                        <h2><i class="fas fa-chart-line icon-style"></i>Analytics and Insights</h2>
-                        <p>Gain actionable insights with our in-depth post analysis to refine your content strategy and
-                            audience engagement.</p>
-                        </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -155,13 +155,17 @@
             <!-- Commitment and Safeguarding -->
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background creator-safeguarding-info">
-                    <div class="glass-effect">
-                        <div >
-                        <img class="card-img-top w-100" src="{% static 'images/ci1.png' %}" alt="Commitment and Safeguarding">
-                    </div>
-                        <h2 class="text-dark"><i class="fas fa-shield-alt icon-style"></i>Commitment and Safeguarding</h2>
-                        <p class="mb-3 pb-3">Our commitment ensures you're backed by solid contracts, timely payments, and transparent
-                            dealings for your peace of mind.</p>
+                    <div class="glass-effect  card d-flex justify-content-center align-items-center  mb-3">
+
+                        <img class="card-img-top w-100" src="{% static 'images/ci1.png' %}"
+                            alt="Commitment and Safeguarding">
+
+                        <div class="card-body bg-light border-0 rounded opacity-75">
+                            <h4 class="text-dark"><i class="fas fa-shield-alt icon-style"></i>Commitment and
+                                Safeguarding</h2>
+                            <p>Our commitment ensures you're backed by solid contracts, timely payments, and transparent
+                                dealings for your peace of mind.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -169,127 +173,155 @@
             <!-- Freedom and Flexibility -->
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="gradient-background freedom-flexibility-info">
-                    <div class="glass-effect">
-                                                <div>
-                        <img class="card-img-top w-100" src="{% static 'images/ci3.png' %}" alt="Freedom and Flexibility">
-                    </div>
-                        <h2 class="text-danger"><i class="fas fa-hand-paper icon-style"></i>Freedom and Flexibility</h2>
-                        <p class="mb-3 pb-3">Embrace the freedom to express your creativity on your terms, with the flexibility to engage
-                            with multiple brands and campaigns.</p>
+                    <div class="glass-effect  card d-flex justify-content-center align-items-center  mb-3">
+                        
+                            <img class="card-img-top w-100" src="{% static 'images/ci3.png' %}"
+                                alt="Freedom and Flexibility">
+                        
+                        <div class="card-body bg-light border-0 rounded opacity-75">
+                            <h4 class="text-danger"><i class="fas fa-hand-paper icon-style"></i>Freedom and Flexibility
+                            </h4>
+                            <p>Embrace the freedom to express your creativity on your terms, with the flexibility to
+                                engage
+                                with multiple brands and campaigns.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+                </div>
 
-            <!-- Opportunities and Perks -->
-            <div class="col-12 col-md-6 col-lg-4 mb-4">
-                <div class="gradient-background opportunities-benefits-listing">
-                    <div class="glass-effect">
-                                                       <div >
-                        <img class="card-img-top w-100" src="{% static 'images/ci7.png' %}" alt="Freedom and Flexibility">
-                    </div>
-                        <h2><i class="fas fa-gift icon-style"></i>Opportunities and Perks</h2>
-                        <p class="mb-3 pb-3">Enjoy exclusive perks like sponsored travel, product freebies, and premium campaign rates to
-                            reward your creative contributions.</p>
+                <!-- Opportunities and Perks -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="gradient-background opportunities-benefits-listing">
+                        <div class="glass-effect  card d-flex justify-content-center align-items-center  mb-3">
+                            
+                                <img class="card-img-top w-100" src="{% static 'images/ci7.png' %}"
+                                    alt="Freedom and Flexibility">
+                           
+                            <div class="card-body bg-light border-0 rounded opacity-75">
+                                <h4><i class="fas fa-gift icon-style"></i>Opportunities and Perks</h2>
+                                <p>Enjoy exclusive perks like sponsored travel, product freebies, and premium campaign
+                                    rates to
+                                    reward your creative contributions.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Content Creator Advertising Opportunities -->
-            <div class="col-12 col-md-6 col-lg-4 mb-4">
-                <div class="gradient-background content-creator-advertising">
-                    <div class="glass-effect">
-                        <div >
-                            <img class="card-img-top w-100" src="{% static 'images/ci5.png' %}" alt="Freedom and Flexibility">
+                    <!-- Content Creator Advertising Opportunities -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="gradient-background content-creator-advertising">
+                            <div class="glass-effect  card d-flex justify-content-center align-items-center  mb-3">
+                                
+                                    <img class="card-img-top w-100" src="{% static 'images/ci5.png' %}"
+                                        alt="Freedom and Flexibility">
+                                
+                                <div class="card-body bg-light border-0 rounded opacity-75">
+                                    <h2 class="text-dark"><i class="fas fa-bullhorn icon-style"></i>Advertising
+                                        Opportunities</h2>
+                                    <p >Stand out with tailored advertising campaigns that showcase
+                                        your unique brand across multiple
+                                        platforms and audiences.</p>
+                                </div>
+                            </div>
                         </div>
-                        <h2 class="text-dark"><i class="fas fa-bullhorn icon-style"></i>Advertising Opportunities</h2>
-                        <p class="mb-3 pb-3">Stand out with tailored advertising campaigns that showcase your unique brand across multiple
-                            platforms and audiences.</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    
 
-    <div class="row ps-4 pe-4 ms-4 me-4">
-        <div class="col-12">
-            <div class=" p-4">
-                <h2 class="text-center">Roles and Responsibilities</h2>
-                <p class="text-center">As a creative partner, you'll play a pivotal role in shaping narratives and
-                    creating engaging
-                    content that resonates with audiences.</p>
-                <div class="row d-flex justify-content-center align-items-center mt-5 mb-5">
-                    <!-- Card for Crafting Content -->
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="gradient-background analytics-support-info">
-                            <div class="glass-effect">
-                                         <div >
-                            <img class="card-img-top w-100" src="{% static 'images/ci6.png' %}" alt="Freedom and Flexibility">
-                        </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><i class="fas fa-pencil-alt icon-cycle"></i>Crafting
-                                    Content</h5>
-                                <p class="card-text">Crafting authentic and compelling content that aligns with
-                                    brand values.</p>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <!-- Card for Community Interaction -->
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="gradient-background analytics-support-info">
-                            <div class="glass-effect  card d-flex justify-content-center align-items-center me-3 mb-3">
-                               
-                                <div >
-                                    <img class="card-img-top w-100" src="{% static 'images/ci4.png' %}" alt="Card image cap">
+
+                <div class="row ps-4 pe-4 ms-4 me-4">
+                    <div class="col-12">
+                        <div class=" p-4">
+                            <h2 class="text-center display-4">Roles and Responsibilities</h2>
+                            <p class="text-center lead header-4">As a creative partner, you'll play a pivotal role in
+                                shaping narratives and
+                                creating engaging
+                                content that resonates with audiences.</p>
+                            <div class="row d-flex justify-content-center align-items-center mt-5 mb-5">
+                                <!-- Card for Crafting Content -->
+                                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                    <div class="gradient-background analytics-support-info">
+                                        <div class="glass-effect">
+                                            <div>
+                                                <img class="card-img-top w-100" src="{% static 'images/ci6.png' %}"
+                                                    alt="Freedom and Flexibility">
+                                            </div>
+                                            <div class="card-body card-body bg-light border-0 rounded opacity-75">
+                                                <h5 class="card-title text-dark"><i
+                                                        class="fas fa-pencil-alt icon-cycle"></i>Crafting
+                                                    Content</h5>
+                                                <p class="card-text">Crafting authentic and compelling content that
+                                                    aligns with
+                                                    brand values.</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><i class="fas fa-comments icon-cycle"></i>Community
-                                    Interaction</h5>
-                                <p class="card-text">Interacting with your community and fostering a positive
-                                    brand image.</p>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <!-- Card for Industry Research -->
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="gradient-background analytics-support-info">
-                            <div class="glass-effect card d-flex justify-content-center align-items-center me-3 mb-3">
-                               
-                                <div>
-                                    <img class="card-img-top w-100" src="{% static 'images/ci9.png' %}" alt="Card image cap">
+                                <!-- Card for Community Interaction -->
+                                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                    <div class="gradient-background analytics-support-info">
+                                        <div
+                                            class="glass-effect  card d-flex justify-content-center align-items-center  mb-3">
+
+                                            <div>
+                                                <img class="card-img-top w-100" src="{% static 'images/ci4.png' %}"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <div class="card-body  bg-light border-0 rounded opacity-75">
+                                                <h5 class="card-title"><i
+                                                        class="fas fa-comments icon-cycle"></i>Community
+                                                    Interaction</h5>
+                                                <p class="card-text">Interacting with your community and fostering a
+                                                    positive
+                                                    brand image.</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><i class="fas fa-search icon-cycle"></i>Industry Research
-                                </h5>
-                                <p class="card-text">Researching and staying up-to-date with industry trends to
-                                    keep content relevant.</p>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <!-- Card for Brand Collaboration -->
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="gradient-background analytics-support-info">
-                            <div class="glass-effect card d-flex justify-content-center align-items-center me-3 mb-3">
-                               
-                                <div >
-                                    <img class="card-img-top w-100" src="{% static 'images/ci2.png' %}" alt="Card image cap">
+                                <!-- Card for Industry Research -->
+                                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                    <div class="gradient-background analytics-support-info">
+                                        <div
+                                            class="glass-effect card d-flex justify-content-center align-items-center  mb-3">
+
+                                            <div>
+                                                <img class="card-img-top w-100" src="{% static 'images/ci9.png' %}"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <div class="card-body  bg-light border-0 rounded opacity-75">
+                                                <h5 class="card-title"><i class="fas fa-search icon-cycle"></i>Industry
+                                                    Research
+                                                </h5>
+                                                <p class="card-text">Researching and staying up-to-date with industry
+                                                    trends to
+                                                    keep content relevant.</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><i class="fas fa-handshake icon-cycle"></i>Brand
-                                    Collaboration</h5>
-                                <p class="card-text">Collaborating with brands to create synergistic marketing
-                                    efforts.</p>
+                                <!-- Card for Brand Collaboration -->
+                                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                    <div class="gradient-background analytics-support-info">
+                                        <div
+                                            class="glass-effect card d-flex justify-content-center align-items-center  mb-3">
+
+                                            <div>
+                                                <img class="card-img-top w-100" src="{% static 'images/ci2.png' %}"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <div class="card-body  bg-light border-0 rounded opacity-75">
+                                                <h5 class="card-title"><i class="fas fa-handshake icon-cycle"></i>Brand
+                                                    Collaboration</h5>
+                                                <p class="card-text">Collaborating with brands to create synergistic
+                                                    marketing
+                                                    efforts.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 </main>
 
 <!-- Additional scripts and end of block content -->
