@@ -4,7 +4,7 @@
 {% block content %}
 
     <!-- Main Content Area -->
-    <main class="mt-4">
+    
       <div class="container">
           {% if user.is_authenticated %}
               <h1>Welcome to Create Nova, {{ user_name }}!</h1>
@@ -14,7 +14,7 @@
           <p>Indonesia's premier digital marketing and web development agency...</p>
           <!-- More content goes here -->
       </div>
-  </main>
+  
   {% if is_content_creator %}
   {% with user_content_creator=user.contentcreator %}
       {% if not user_content_creator.is_approved %}

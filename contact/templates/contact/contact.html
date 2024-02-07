@@ -3,18 +3,63 @@
 
 {% block content %}
 <section id="about-us" class="about-section">
-    <div class="container py-5 text-center">
-        <h2>About Us</h2>
-        <p class="lead">Create Nova is dedicated to empowering businesses with cutting-edge digital marketing and web development solutions. Our team of experts strives to drive growth and innovation for our clients.</p>
-        <!-- More about us content -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-6 text-center mt-5 pt-2">
+        <h2 class="header-2">About Us</h2>
+        <p class="lead">Established in 2024 by two entrepreneurs with a vision of modernizing Indonesian businesses and showcasing the brilliance of our country. Create Nova is dedicated to empowering businesses with cutting-edge digital marketing and web development solutions. Our team of experts strives to drive growth and innovation for our clients.</p>
+        <a href="https://docs.google.com/presentation/d/e/2PACX-1vSb9RfcOXzjQ8LDSAdOBl4KdvBqtfhXWSjGvdrDzmsKOWCQLcGJs-nK9fG1jWSiQXj-KgyjdGDu0Yws/pub?start=true&loop=true&delayms=5000" target="_blank" class="btn btn-dark btn-outline-light btn-sm">Slide Deck View</a>
+        
     </div>
+    <div class="col-12 col-lg-6 mt-4 mt-lg-0">
+        <div id="lottie-animation5"></div>
+    </div>
+</div>
+</div>
 </section>
 
-<section id="contact-us" class="contact-section bg-light">
-    <div class="container py-5 text-center">
-        <h2>Contact Us</h2>
-        <p class="lead">Have questions? Our team is here to help. Reach out to us and let's start the conversation.</p>
-        <!-- Contact form or additional contact information -->
+<section id="contact-us" class="contact-section bg-light" >
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-6 mt-4 mt-lg-0 mb-5">
+                <div id="lottie-animation6"></div>
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                <h2 class="h-2 mt-5 pt-2">Contact Us</h2>
+                <p class="lead">Have questions? We aim to reply within 48 hours. If you have any questions, please feel free to reach out to us.</p>
+                <div>
+                    <p><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> +6287872055691</p>
+                    <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +6287872055691</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:nova@createnova.org" class="text-decoration-none">nova@createnova.org</a></p>
+                </div>
+                <a href="https://www.linkedin.com/company/99204935" target="_blank" rel="noopener" class="btn btn-dark btn-outline-light btn-sm"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+
+        </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js" integrity="sha512-m0RQU4SBx0p/bLwRiI4fJBGRafVLZ4s86wRe1+OAx5EXbcWiS/X1jvYdJQRD8jOoIVl+WTyVeMawUWVCh1O8+Q==" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var animation5 = lottie.loadAnimation({
+            container: document.getElementById('lottie-animation5'), // Required
+            path: '{% static "images/lotti-animation5.json" %}', // Required
+            renderer: 'svg', // Required
+            loop: true, // Optional
+            autoplay: true, // Optional
+        });
+
+        var animation6 = lottie.loadAnimation({
+            container: document.getElementById('lottie-animation6'), // Required
+            path: '{% static "images/lotti-animation6.json" %}', // Required
+            renderer: 'svg', // Required
+            loop: true, // Optional
+            autoplay: true, // Optional
+        });
+    });
+</script>
 {% endblock %}
