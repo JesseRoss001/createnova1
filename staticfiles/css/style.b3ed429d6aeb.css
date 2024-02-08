@@ -19,7 +19,6 @@
     padding: 10px 20px;
     border-radius: 25px; /* Rounded corners like a button */
     display: inline-block;
-    
     position: relative; /* Needed for pseudo-elements */
     overflow: hidden; /* Ensures the background is contained within the border-radius */
 }
@@ -91,7 +90,6 @@
     .brand-create, .brand-nova {
         font-size: 2rem;
     }
-    .brand-container{left:3rem;}
 }
 
 @media (min-width: 768px) {
@@ -133,7 +131,9 @@ ul li a {
 }
 
 
-
+#below-hero {
+    perspective: 1500px; /* Add perspective to create 3D space */
+  }
   
   .home-content {
     transform-style: preserve-3d; /* Allow 3D transformations */
@@ -177,7 +177,7 @@ ul li a {
   }
   
   #website-services {
-    perspective: 1000px;
+    perspective: 1500px;
     transform-style: preserve-3d;
     animation: float 5s ease-in ;
   }
@@ -227,13 +227,7 @@ ul li a {
   background-color: #000; /* Same as header for consistency */
   color: #fff;
   text-align: center;
-  
-  /* Footer adjustments for a sticky footer */
-
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-
+  padding: 20px 0;
 }
 
 .footer-content a {
@@ -252,7 +246,7 @@ ul li a {
 .navbar-toggler-icon {
   
   
-  /* This will make it white, adjust as needed */
+  background-color: red;/* This will make it white, adjust as needed */
 }
 
 /* Add icons to navbar links */
