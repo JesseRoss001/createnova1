@@ -38,7 +38,7 @@ LOGIN_URL = 'login'
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-default-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [ '8000-jesseross00-createnova1-zuj7xqyxv3c.ws-eu107.gitpod.io','https://8000-jesseross00-createnova1-zuj7xqyxv3c.ws-eu108.gitpod.io',]
 # Add your Heroku app domain to CSRF_TRUSTED_ORIGINS
