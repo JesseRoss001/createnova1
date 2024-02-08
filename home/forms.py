@@ -6,6 +6,7 @@ from services.models import LifeCategory
 from django.contrib.auth.forms import AuthenticationForm
 from portfolio.models import ContentCreator
 import json
+import os
 
 
 
@@ -49,8 +50,8 @@ class StaffSignUpForm(UserCreationForm):
 
     def clean_access_code(self):
         access_code = self.cleaned_data.get('access_code')
-        valid_codes = ["4B4IYn4eMS06lLlw0mhv", "G2Yzm4fsWJakX9N9d2XL", "BBS4di6qzjp94UAzvA9g", "3nod6OgbBJUhC9aRZfBo", "31qTTrF5F4p0X2vVkq7a", "RXUvfr1WWwLnDkyz4Hbq", "a7PvA8opvq24SkxGVcS5", "mvNtmastmNGo9McgSZxW", "AiLRBr6L8gJ8Hf9J4gZZ", "0HN0DQ4Z3o2Lj5MqZ3kT", "u2aZCpeIxc61jwVRdH1e", "a1EP6NB4kIjBfWCSvolO", "47bV22wpc5VraTLmUJLF", "QvkXgsuqksn2sUSHR5Lv", "gEG9nxrJuFc3sjF8cAdf", "AQ5iJ5D3EFNeGmb8scDA", "Kc9WLeIzP45VJeXsw8qG", "YCgQNyV47Neoz3Lidud6", "VuoiJJw5W3tnFrj9EgDe", "lLXrUslXcAw78EEf2hcO"  # ... include all access codes ...
-        ]
+        valid_codes_str = os.environ.get('VALID_ACCESS_CODES', '')
+        valid_codes = valid_codes_str.split(',')
         if access_code not in valid_codes:
             raise forms.ValidationError("Invalid access code.")
         return access_code
