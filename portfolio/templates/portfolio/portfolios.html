@@ -107,14 +107,11 @@
                 id="{{ form.expertise_area.id_for_label }}" />
             </div>
             <!-- Social Media Links -->
-            {% for i in "12345" %}
-            <div class="form-group">
-              <label for="social_media_link_{{ forloop.counter }}">Social Media Link {{ forloop.counter }}:</label>
-              <input type="url" id="social_media_link_{{ forloop.counter }}"
-                name="social_media_link_{{ forloop.counter }}" class="form-control" {% if social_media_links %}
-                value="{{ social_media_links.forloop.counter0 }}" {% endif %}>
-            </div>
-            {% endfor %}
+        <!-- Container for social media links -->
+        <div id="social-media-container" class="col-12">
+          <!-- Existing social media links will be populated here by JavaScript -->
+        </div>
+      
             <!-- Life Categories -->
             <div class="form-group">
               <label>Life Categories:</label>
@@ -129,7 +126,8 @@
                 {% endfor %}
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">Update Profile</button>
+            <input type="hidden" id="social_media_links_json" name="social_media_links_json" value="{{ social_media_links_json }}">
+            <button type="submit" class="btn btn-primary mt-4">Update Profile</button>
           </form>
         </div>
       </div>
@@ -139,36 +137,40 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    // Function to create and append a social media input field
+    function createSocialMediaInput(value = '', index) {
+      const container = document.getElementById('social-media-container');
+      if (container.children.length < 5) {
+        const input = document.createElement('input');
+        input.type = 'url';
+        input.name = 'social_media_link_' + index;
+        input.id = 'social_media_link_' + index;
+        input.classList.add('form-control', 'mb-2');
+        input.placeholder = 'Enter social media URL';
+        input.value = value;
+        container.appendChild(input);
+      }
+    }
 
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function () {
-          // Define a function to add a social media input field
-          function addSocialMediaField(value = '') {
-              const container = document.getElementById('social-media-container');
-              if (container.children.length < 5) { // Limit to 5 fields
-                  const input = document.createElement('input');
-                  input.type = 'text';
-                  input.classList.add('form-control', 'mb-2');
-                  input.placeholder = 'Enter social media URL, e.g., https://twitter.com/username';
-                  input.name = `social_media_link_${container.children.length + 1}`;
-                  input.value = value; // Set input value if provided
-                  container.appendChild(input);
-              }
-          }
-      
-          // Load and display existing social media links
-          const socialMediaLinks = {{ social_media_links_json|safe }};
-          socialMediaLinks.forEach(link => addSocialMediaField(link));
-      
-          // Ensure there's always one empty input field available
-          if (socialMediaLinks.length < 5) {
-              addSocialMediaField();
-          }
-      
-          // Attach event to the "Add another social media link" button
-          document.getElementById('add-social-media-button').addEventListener('click', function() {
-              addSocialMediaField();
-          });
-      });
-      </script>
-    {% endblock %}
+    // Parse and populate the social media links
+    const socialMediaLinks = JSON.parse(document.getElementById('social_media_links_json').value || '[]');
+    socialMediaLinks.forEach((link, index) => {
+      createSocialMediaInput(link, index + 1);
+    });
+
+    // If there are less than 5 links, append empty input fields
+    for (let i = socialMediaLinks.length; i < 5; i++) {
+      createSocialMediaInput('', i + 1);
+    }
+
+    // Event listener for 'Add another social media link' button
+    document.getElementById('add-social-media-button').addEventListener('click', function() {
+      createSocialMediaInput('', document.querySelectorAll('#social-media-container input').length + 1);
+    });
+  });
+</script>
+</div>
+
+{% endblock %}
