@@ -96,11 +96,16 @@
             <p><strong>Portfolio URL:</strong> <a href="{{ creator.portfolio_url }}" target="_blank">{{ creator.portfolio_url }}</a></p>
             <p><strong>Social Media Links:</strong> {{ creator.social_media_links|safe }}</p>
             <p><strong>Life Categories:</strong></p>
+            
             <ul>
                 {% for category in creator.life_categories.all %}
                 <li>{{ category.name }}</li>
                 {% endfor %}
             </ul>
+            <form method="post" action="{% url 'delete_content_creator' creator.user.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this content creator?');">Delete</button>
+          </form>
         </div>
     </div>
     {% empty %}

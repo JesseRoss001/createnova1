@@ -12,6 +12,7 @@ from django.http import JsonResponse
 from testimonials.models import Business
 from services.models import LifeCategory
 from django.db.models import Q
+from django.views.decorators.http import require_POST
 import json
 
 def home(request):
@@ -308,3 +309,15 @@ def content_creator_profiles(request):
         'request': request,
     }
     return render(request, 'home/content_creator_profiles.html', context)
+
+@login_required
+@require_POST  # Ensure this view can only be accessed via POST request
+def delete_content_creator(request, user_id):
+    if not request.user.is_staff:
+        messages.error(request, "You are not authorized to perform this action.")
+        return redirect('content_creator_profiles')
+    
+    content_creator = get_object_or_404(ContentCreator, user_id=user_id)
+    content_creator.delete()
+    messages.success(request, "Content creator has been successfully deleted.")
+    return redirect('content_creator_profiles')

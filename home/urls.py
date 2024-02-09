@@ -22,7 +22,9 @@ urlpatterns = [
     path('business/delete/<int:business_id>/', views.delete_business_interest, name='delete_business_interest'),
     path('business/completed_and_paid/<int:business_id>/', views.mark_completed_and_paid, name='mark_completed_and_paid'),
     path('creators/', views.content_creator_profiles, name='content_creator_profiles'),
+    path('delete_content_creator/<int:user_id>/', views.delete_content_creator, name='delete_content_creator'),
 ]
+
 
 urlpatterns += [
     # ... other url patterns ...
