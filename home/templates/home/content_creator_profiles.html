@@ -104,7 +104,7 @@
             </ul>
             <form method="post" action="{% url 'delete_content_creator' creator.user.id %}">
               {% csrf_token %}
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this content creator?');">Delete</button>
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove this content creator?');">Remove</button>
           </form>
         </div>
     </div>
