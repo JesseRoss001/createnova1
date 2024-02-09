@@ -141,13 +141,34 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-      var socialMediaLinks = {{ social_media_links| safe }};
-      // Populate the social media link input fields
-      for (var i = 1; i <= 5; i++) {
-        var input = document.getElementById('social_media_link_' + i);
-        if (input && socialMediaLinks['link_' + i]) {
-          input.value = socialMediaLinks['link_' + i];
-        }
-      }
-    </script>
+      document.addEventListener('DOMContentLoaded', function () {
+          // Define a function to add a social media input field
+          function addSocialMediaField(value = '') {
+              const container = document.getElementById('social-media-container');
+              if (container.children.length < 5) { // Limit to 5 fields
+                  const input = document.createElement('input');
+                  input.type = 'text';
+                  input.classList.add('form-control', 'mb-2');
+                  input.placeholder = 'Enter social media URL, e.g., https://twitter.com/username';
+                  input.name = `social_media_link_${container.children.length + 1}`;
+                  input.value = value; // Set input value if provided
+                  container.appendChild(input);
+              }
+          }
+      
+          // Load and display existing social media links
+          const socialMediaLinks = {{ social_media_links_json|safe }};
+          socialMediaLinks.forEach(link => addSocialMediaField(link));
+      
+          // Ensure there's always one empty input field available
+          if (socialMediaLinks.length < 5) {
+              addSocialMediaField();
+          }
+      
+          // Attach event to the "Add another social media link" button
+          document.getElementById('add-social-media-button').addEventListener('click', function() {
+              addSocialMediaField();
+          });
+      });
+      </script>
     {% endblock %}

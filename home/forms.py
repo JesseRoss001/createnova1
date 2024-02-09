@@ -10,7 +10,7 @@ import os
 
 
 
-User = get_user_model()
+
 
 User = get_user_model()
 
@@ -31,13 +31,18 @@ class ContentCreatorSignUpForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_active = False  # Keep the user inactive until approved
+        user.is_active = False
         if commit:
             user.save()
+            # Assuming 'social_media_links_json' is a field name in your form
             social_media_links = json.loads(self.cleaned_data.get('social_media_links_json', '[]'))
-            self.instance.contentcreator.social_media_links = social_media_links
-            self.instance.contentcreator.save()
-            self.instance.contentcreator.life_categories.set(self.cleaned_data.get('life_categories'))
+            ContentCreator.objects.create(
+                user=user,
+                portfolio_url=self.cleaned_data.get('portfolio_url'),
+                expertise_area=self.cleaned_data.get('expertise_area'),
+                social_media_links=social_media_links,
+                # Assuming life_categories is a m2m field
+            ).life_categories.set(self.cleaned_data.get('life_categories'))
         return user
 
 class StaffSignUpForm(UserCreationForm):

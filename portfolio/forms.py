@@ -27,14 +27,8 @@ class ContentCreatorProfileForm(forms.ModelForm):
         return profile_photo
 
     def __init__(self, *args, **kwargs):
-        super(ContentCreatorProfileForm, self).__init__(*args, **kwargs)
-        if self.instance:
-            # Initialize an empty dict if social_media_links is empty or not valid JSON
-            try:
-                social_media_links = json.loads(self.instance.social_media_links) if self.instance.social_media_links else {}
-            except json.JSONDecodeError:
-                social_media_links = {}
-            
-            for i in range(1, 6):
-                field_name = f'social_media_link_{i}'
-                self.fields[field_name].initial = social_media_links.get(f'link_{i}', '')
+        super().__init__(*args, **kwargs)
+        # Initialize form fields for social media links if they exist
+        social_media_links = self.instance.social_media_links or []
+        for i, link in enumerate(social_media_links, start=1):
+            self.fields[f'social_media_link_{i}'].initial = link
