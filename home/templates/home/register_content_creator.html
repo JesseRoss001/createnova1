@@ -12,11 +12,16 @@
                 {% csrf_token %}
                 {{ form.as_p }}
                 <div class="row">
-                    <div id="social-media-container" class="col-12"></div>
+                    <div id="social-media-container" class="col-12">
+                        <!-- Initial input field for a social media link -->
+                        <input type="text" class="form-control mb-2" placeholder="Enter social media URL, e.g., https://twitter.com/username" name="social_media_links" oninput="handleInput()">
+                    </div>
                 </div>
-                <button type="button" class="btn btn-secondary mt-2" onclick="addSocialMediaField()">Add Social Media Link</button>
-                <button class="btn btn-primary text-center mt-3" type="submit">Sign Up</button>
-                <input type="hidden" id="social_media_links_json" name="social_media_links">
+                <p>Add your social media links. Format: https://twitter.com/username</p>
+                <button type="button" class="btn btn-secondary mt-2" onclick="addSocialMediaField()">Add another social media link</button>
+                <p class="text-center  mt-4 mb-2"> Accounts are reviewed and accepted within 48 hours . Remember your details and login after this time is over</p>
+                <button class="btn btn-primary text-center mt-5" type="submit">Sign Up and submit details</button>
+                <input type="hidden" id="social_media_links_json" name="social_media_links_json">
             </form>
         </div>
     </div>
@@ -26,23 +31,21 @@
     function addSocialMediaField() {
         const container = document.getElementById('social-media-container');
         
-        // Create input group only if there are fewer than 5 fields
-        if (container.children.length < 5) {
+        if (container.children.length < 5) { // Limit to 5 fields
             const input = document.createElement('input');
             input.type = 'text';
             input.classList.add('form-control', 'mb-2');
-            input.placeholder = 'Enter social media URL';
+            input.placeholder = 'Enter social media URL, e.g., https://twitter.com/username';
             input.name = 'social_media_links';
             input.oninput = handleInput;
             container.appendChild(input);
         }
     }
 
-    function handleInput(event) {
-        // Update social media links array
-        const inputs = document.getElementsByName('social_media_links');
-        const newLinks = Array.from(inputs).map(input => input.value);
-        document.getElementById('social_media_links_json').value = JSON.stringify(newLinks);
+    function handleInput() {
+        const inputs = document.querySelectorAll('#social-media-container input[name="social_media_links"]');
+        const links = Array.from(inputs).map(input => input.value.trim()).filter(value => value !== '');
+        document.getElementById('social_media_links_json').value = JSON.stringify(links);
     }
 </script>
 {% endblock %}

@@ -12,6 +12,7 @@ from django.http import JsonResponse
 from testimonials.models import Business
 from services.models import LifeCategory
 from django.db.models import Q
+import json
 
 def home(request):
     user = request.user
@@ -91,7 +92,6 @@ def logout_view(request):
     logout(request)
     messages.info(request, 'You have successfully logged out.')
     return redirect('home')
-
 def register_content_creator(request):
     if request.method == 'POST':
         form = ContentCreatorSignUpForm(request.POST, request.FILES)
@@ -99,21 +99,34 @@ def register_content_creator(request):
             user = form.save(commit=False)
             user.is_active = False  # Keep the user inactive until approved
             user.save()
+            
+            # Process social media links JSON data
+            social_media_links_json = form.cleaned_data.get('social_media_links_json', '[]')
+            social_media_links = json.loads(social_media_links_json)
+            
             content_creator = ContentCreator.objects.create(
                 user=user,
                 portfolio_url=form.cleaned_data.get('portfolio_url'),
                 expertise_area=form.cleaned_data.get('expertise_area'),
-                social_media_links=form.cleaned_data.get('social_media_links'),
-                
+                social_media_links=social_media_links,  # Save the parsed JSON data
             )
-            # Assign selected categories to the content creator
+            
+            # Assign selected life categories to the content creator
             content_creator.life_categories.set(form.cleaned_data.get('life_categories'))
-            messages.success(request, 'Your account has been created and is pending approval.')
+            
+            # Here's where you add the message
+            messages.info(request, 'Your account has been created and is pending approval. This process could take up to 48 hours. Thank you for your patience.')
             return redirect('home')  # Redirect content creators to home
         else:
-            messages.error(request, 'Please correct the errors below.')
+            # Include more descriptive error messages
+            messages.error(request, 'Please review the form for errors. Ensure all fields are filled out correctly and social media links are in the proper format.')
     else:
         form = ContentCreatorSignUpForm()
+        # Provide instructions for form fields as initial help text
+        form.fields['portfolio_url'].help_text = "Enter the URL to your portfolio. This can be a personal website, a LinkedIn profile, or a PDF document."
+        form.fields['expertise_area'].help_text = "Describe your area of expertise. This could include your creative skills, industries you've worked in, or specific types of content you create."
+        form.fields['social_media_links_json'].help_text = "Add links to your social media profiles. Please use the full URL, such as https://twitter.com/yourusername. You can add up to 5 links."
+    
     return render(request, 'home/register_content_creator.html', {'form': form})
 
 def register_staff(request):
